@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"> 
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <SplitView x:Name="Menu" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="45" OpenPaneLength="220">
             <SplitView.Pane>
                 <StackPanel HorizontalAlignment="Left">
@@ -15,13 +15,14 @@
                     <ListBox SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged" >
                         <ListBoxItem Name="Menu1">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Name="addCoordinate" Text="&#xE713;" FontFamily="Segoe MDL2 Assets" FontSize="25"></TextBlock>
-                                <TextBlock Name="coordinateText" Text="Verander Coordinaten" Margin="20,0,0,0"></TextBlock>
+                                <TextBlock Name="addCoordinate" Text="&#xE0C4;" FontFamily="Segoe MDL2 Assets" FontSize="25"></TextBlock>
+                                <TextBlock Name="coordinateText" Text="Ga terug" Margin="20,0,0,0"></TextBlock>
                             </StackPanel>
                         </ListBoxItem>
                     </ListBox>
                 </StackPanel>
             </SplitView.Pane>
+            <TextBlock x:Name="Settings" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Settings" VerticalAlignment="Top" Width="315" TextAlignment="Center"/>
         </SplitView>
     </Grid>
 </Page>

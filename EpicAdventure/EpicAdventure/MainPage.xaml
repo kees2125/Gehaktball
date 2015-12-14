@@ -8,18 +8,21 @@
     x:Class="EpicAdventure.MainPage"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
-    <Page.BottomAppBar>
-        <AppBar IsOpen="True" IsSticky="True">
-            <StackPanel Orientation="Horizontal">
-                <CommandBar>
-                    <CommandBar.SecondaryCommands>
-                        <AppBarButton Name="Hide" Icon="Cancel" Label="Hide Other" Visibility="Collapsed" Click="Show_Click"/>
-                    </CommandBar.SecondaryCommands>
-                </CommandBar>
-                <AppBarButton Name="Show" Icon="Accept" Label="Show Other" Click="Show_Click"/>
-                <AppBarButton Name="Set" Icon="Accept" Label="Set Page" Click="Show_Settings"/>
-            </StackPanel>
-        </AppBar>
-    </Page.BottomAppBar>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <SplitView x:Name="Menu" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="45" OpenPaneLength="220">
+            <SplitView.Pane>
+                <StackPanel HorizontalAlignment="Left">
+                    <Button Name="newButton" Content="&#xE700;" Click="newButton_Click" FontFamily="Segoe MDL2 Assets" FontSize="25"></Button>
+                    <ListBox SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged" >
+                        <ListBoxItem Name="Menu1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Name="addCoordinate" Text="&#xE713;" FontFamily="Segoe MDL2 Assets" FontSize="25"></TextBlock>
+                                <TextBlock Name="coordinateText" Text="Verander Coordinaten" Margin="20,0,0,0"></TextBlock>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </ListBox>
+                </StackPanel>
+            </SplitView.Pane>
+        </SplitView>
+    </Grid>
 </Page>
