@@ -26,5 +26,26 @@ namespace EpicAdventure
         {
             this.InitializeComponent();
         }
+
+        private void Show_Click(object sender, RoutedEventArgs e)
+        {
+            if (Hide.Visibility.Equals(Windows.UI.Xaml.Visibility.Collapsed))
+            {
+                Hide.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Hide.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void Show_Settings(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(BlankPage1));
+            //var BlankPage1 = (BlankPage1)e.ClickedItem;
+            //this.Frame.Navigate(typeof(BlankPage1));
+        }
+
+
     }
 }

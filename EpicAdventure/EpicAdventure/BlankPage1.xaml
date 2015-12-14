@@ -1,0 +1,27 @@
+﻿<Page
+    x:Class="EpicAdventure.BlankPage1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EpicAdventure"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"> 
+        <SplitView x:Name="Menu" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="45" OpenPaneLength="220">
+            <SplitView.Pane>
+                <StackPanel HorizontalAlignment="Left">
+                    <Button Name="newButton" Content="&#xE700;" Click="newButton_Click" FontFamily="Segoe MDL2 Assets" FontSize="25"></Button>
+                    <ListBox SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged" >
+                        <ListBoxItem Name="Menu1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Name="addCoordinate" Text="&#xE713;" FontFamily="Segoe MDL2 Assets" FontSize="25"></TextBlock>
+                                <TextBlock Name="coordinateText" Text="Verander Coordinaten" Margin="20,0,0,0"></TextBlock>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </ListBox>
+                </StackPanel>
+            </SplitView.Pane>
+        </SplitView>
+    </Grid>
+</Page>
