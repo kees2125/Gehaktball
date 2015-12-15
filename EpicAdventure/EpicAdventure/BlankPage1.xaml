@@ -22,7 +22,73 @@
                     </ListBox>
                 </StackPanel>
             </SplitView.Pane>
-            <TextBlock x:Name="Settings" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Settings" VerticalAlignment="Top" Width="315" TextAlignment="Center"/>
+            <StackPanel HorizontalAlignment="Stretch">
+                <TextBlock x:Name="Settings"  Text="Settings" VerticalAlignment="Top" TextAlignment="Center"/>
+                <TextBlock Name="tekstCoordinaten" Text="DMS (degrees, minutes, secondes)" FontSize="20" TextAlignment="Center"/>
+                <StackPanel Margin="5">
+                    <TextBlock FontSize="20">Lattitude</TextBlock>
+                    <Grid Margin="0,10,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ToggleSwitch Grid.Column="0" x:Name="toggleSwitch" OffContent="N" OnContent="Z"/>
+                        <TextBox  Grid.Column="1" x:Name="Degrees1" Margin="5,0,0,0" Height="3" />
+                        <TextBox  Grid.Column="2" x:Name="Minutes1" Margin="5,0,0,0" Height="1"/>
+                        <TextBox  Grid.Column="3" x:Name="Secondes1" Margin="5,0,0,0" Height="1"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <TextBlock FontSize="20">Longitude</TextBlock>
+                    <Grid Margin="0,10,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ToggleSwitch Grid.Column="0" x:Name="toggleSwitch2" OffContent="E" OnContent="W"/>
+                        <TextBox  Grid.Column="1" x:Name="Degrees2" Margin="5,0,0,0" Height="3" />
+                        <TextBox  Grid.Column="2" x:Name="Minutes2" Margin="5,0,0,0" Height="1"/>
+                        <TextBox  Grid.Column="3" x:Name="Secondes2" Margin="5,0,0,0" Height="1"/>
+                    </Grid>
+                    <Grid Margin="0,10,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Name="startRoute" Content="Start Route" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </StackPanel>
+                
+                <TextBlock Name="textCoordinaten2" Text="Decimal degrees" FontSize="20" TextAlignment="Center"/>
+                <StackPanel Margin="5">
+                    <TextBlock FontSize="20">Lattitude</TextBlock>
+                    <Grid Margin="0,10,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox  Grid.Column="1" x:Name="decimalDegrees" Margin="5,0,0,0" Height="3" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <TextBlock FontSize="20">Longitude</TextBlock>
+                    <Grid Margin="0,10,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox  Grid.Column="1" x:Name="decimalDegrees2" Margin="5,0,0,0" Height="3" />
+                    </Grid>
+                    <Grid Margin="0,10,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="1"  Name="startRoute1" Content="Start Route" HorizontalAlignment="Stretch" />
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
         </SplitView>
     </Grid>
+    
 </Page>

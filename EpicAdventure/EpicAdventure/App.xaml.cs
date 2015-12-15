@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -33,6 +34,12 @@ namespace EpicAdventure
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+        }
+
+        private void App_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -60,6 +67,7 @@ namespace EpicAdventure
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -79,6 +87,13 @@ namespace EpicAdventure
             }
             // Ensure the current window is active
             Window.Current.Activate();
+            rootFrame.Navigated += RootFrame_Navigated;
+            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+        }
+
+        private void RootFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
 
         /// <summary>
