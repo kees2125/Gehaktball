@@ -38,6 +38,8 @@ namespace EpicAdventure
 
         }
 
+        public static Frame rootFrame;
+
         private static GeoTracker geo = new GeoTracker();
 
         public static GeoTracker Geo
