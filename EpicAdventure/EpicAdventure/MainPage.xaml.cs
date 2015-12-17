@@ -184,7 +184,7 @@ namespace EpicAdventure
             switch (accessStatus)
             {
                 case GeolocationAccessStatus.Allowed:
-                    geo = new Geolocator { ReportInterval = 500 };
+                    geo = new Geolocator { ReportInterval = 100 };
 
                     // Subscribe to PositionChanged event to get updated tracking positions
                     geo.PositionChanged += Geo_PositionChanged;
