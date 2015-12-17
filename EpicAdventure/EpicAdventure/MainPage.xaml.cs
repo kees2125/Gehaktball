@@ -28,9 +28,8 @@ namespace EpicAdventure
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        Geolocator geo;
-        bool PositionTracking = false;
-        BasicGeoposition temp;
+        
+        
 
         public MainPage()
         {
@@ -38,7 +37,7 @@ namespace EpicAdventure
             Frame.Navigated += Frame_Navigated;
             SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
             Frame.Navigate(typeof(MapView));
-            StartTracking();
+            
         }
 
         private void App_BackRequested(object sender, BackRequestedEventArgs e)
@@ -140,77 +139,7 @@ namespace EpicAdventure
             Frame.Navigate(typeof(CoordinateView));
         }
 
-        private void Geo_StatusChanged(Geolocator sender, StatusChangedEventArgs args)
-        {
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
-                {
-
-                }
-                );
-        }
-
-        private async void Geo_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                async () =>
-                {
-                    BasicGeoposition p = new BasicGeoposition();
-                    p = args.Position.Coordinate.Point.Position;
-                    if (temp.ToString() == null)
-                        temp = args.Position.Coordinate.Point.Position;
-
-                    MapPolyline mapPolyline = new MapPolyline();
-                    mapPolyline.Path = new Geopath(
-                        new List<BasicGeoposition>() {
-                    p,temp });
-
-
-
-                    mapPolyline.StrokeColor = Colors.Black;
-                    mapPolyline.StrokeThickness = 3;
-                    mapPolyline.StrokeDashed = true;
-                    //Map.MapElements.Add(mapPolyline);
-
-
-
-                    //await Map.TrySetViewAsync(args.Position.Coordinate.Point);
-                }
-                );
-        }
-        private async void StartTracking()
-        {
-            // Request permission to access location
-            var accessStatus = await Geolocator.RequestAccessAsync();
-
-            switch (accessStatus)
-            {
-                case GeolocationAccessStatus.Allowed:
-                    geo = new Geolocator { ReportInterval = 100 };
-
-                    // Subscribe to PositionChanged event to get updated tracking positions
-                    geo.PositionChanged += Geo_PositionChanged;
-
-                    // Subscribe to StatusChanged event to get updates of location status changes
-                    geo.StatusChanged += Geo_StatusChanged;
-
-                    PositionTracking = true;
-
-                   
-
-                    break;
-
-                case GeolocationAccessStatus.Denied:
-
-                    break;
-
-                case GeolocationAccessStatus.Unspecified:
-
-                    break;
-            }
-
-
-        }
+        
 
     }
 }
