@@ -65,13 +65,13 @@
                       Background="Transparent">
 
                     <ListBox RelativePanel.AlignTopWithPanel="True" SelectionMode="Single" Name="NavList" SelectionChanged="NavList_SelectionChanged" Tapped="NavList_Tapped">
-                        <!--<ListBoxItem Name="NavListRoute">
+                        <ListBoxItem Name="NavListMap">
                             <StackPanel Style="{StaticResource NavStackPanel}">
-                                <TextBlock Style="{StaticResource NavIcon}" Text="&#xE7AD;"/>
-                                <TextBlock Style="{StaticResource NavText}" x:Uid="MenuItemRoute" Text="[MenuItemRoute]"/>
+                                <TextBlock Style="{StaticResource NavIcon}" Text="&#xE128;"/>
+                                <TextBlock Style="{StaticResource NavText}" Text="Map"/>
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem Name="NavListHelp">
+                        <!--<ListBoxItem Name="NavListHelp">
                             <StackPanel Style="{StaticResource NavStackPanel}">
                                 <TextBlock Style="{StaticResource NavIcon}" Text="&#xE897;"/>
                                 <TextBlock Style="{StaticResource NavText}" x:Uid="MenuItemHelp"/>
@@ -80,7 +80,7 @@
                         <ListBoxItem Name="NavListSetCoordinates">
                             <StackPanel Style="{StaticResource NavStackPanel}">
                                 <TextBlock Style="{StaticResource NavIcon}" Text="&#xE707;"/>
-                                <TextBlock Style="{StaticResource NavText}" Text="Verander Coordinaten"/>
+                                <TextBlock Style="{StaticResource NavText}" Text="Set Coordinates"/>
                             </StackPanel>
                         </ListBoxItem>
                     </ListBox>
