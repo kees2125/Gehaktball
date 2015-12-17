@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using EpicAdventure.Views;
+using EpicAdventure.Helpers;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -33,17 +35,107 @@ namespace EpicAdventure
         public MainPage()
         {
             this.InitializeComponent();
+            Frame.Navigated += Frame_Navigated;
+            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+            Frame.Navigate(typeof(MapView));
             StartTracking();
         }
 
-        private void newButton_Click(object sender, RoutedEventArgs e)
+        private void App_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            Menu.IsPaneOpen = !Menu.IsPaneOpen;
+            if(Frame.CanGoBack)
+            {
+                Frame.GoBack();
+                e.Handled = true;
+            }
+        }
+
+        private void GPSRefresh_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            App.Geo.ForceRefresh();
+        }
+
+        private void NavList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NavView.IsPaneOpen = false;
+
+            if (NavListSetCoordinates.IsSelected)
+                Frame.Navigate(typeof(CoordinateView));
+            //else if (NavListSettings.IsSelected)
+            //    Frame.Navigate(typeof(SettingsView));
+            //else if (NavListRoute.IsSelected)
+            //    Frame.Navigate(typeof(RouteView));
+        }
+
+        private void MySplitviewPane_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            if (e.Cumulative.Translation.X < -20)
+            {
+                NavView.IsPaneOpen = false;
+            }
+        }
+
+        private void Frame_Navigated(object sender, NavigationEventArgs e)
+        {
+            //Dirty Hack
+            string pagename = e.SourcePageType.ToString().Split('.').Last();
+
+            NavList.SelectedIndex = -1;
+
+            switch (pagename.ToLower())
+            {
+                default:
+                //case "helpview":
+                //    PageTitle.Text = Util.Loader.GetString("PageTitleHelp");
+                //    NavListHelp.IsSelected = true;
+                //    break;
+                //case "settingsview":
+                //    PageTitle.Text = Util.Loader.GetString("PageTitleSettings");
+                //    NavListSettings.IsSelected = true;
+                //    break;
+                case "mapview":
+                    //NavListSetCoordinates.IsSelected = true;
+                    PageTitle.Text = "Map";
+                    break;
+                case "routedetailview":
+                    //PageTitle.Text = Util.Loader.GetString("PageTitleRouteDetail");
+                    break;
+                //case "routeview":
+                //    PageTitle.Text = Util.Loader.GetString("PageTitleRoute");
+                //    NavListRoute.IsSelected = true;
+                //    break;
+                case "waypointview":
+                    //PageTitle.Text = Util.Loader.GetString("PageTitleWaypoint");
+                    break;
+            }
+
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                Frame.CanGoBack ?
+                AppViewBackButtonVisibility.Visible :
+                AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void Grid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            if (e.Cumulative.Translation.X > 20)
+            {
+                NavView.IsPaneOpen = true;
+            }
+        }
+
+        private void NavList_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            NavView.IsPaneOpen = false;
+        }
+
+        private void NavButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavView.IsPaneOpen = !NavView.IsPaneOpen;
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Frame.Navigate(typeof(BlankPage1));
+            Frame.Navigate(typeof(CoordinateView));
         }
 
         private void Geo_StatusChanged(Geolocator sender, StatusChangedEventArgs args)
@@ -76,11 +168,11 @@ namespace EpicAdventure
                     mapPolyline.StrokeColor = Colors.Black;
                     mapPolyline.StrokeThickness = 3;
                     mapPolyline.StrokeDashed = true;
-                    Map.MapElements.Add(mapPolyline);
+                    //Map.MapElements.Add(mapPolyline);
 
 
 
-                    await Map.TrySetViewAsync(args.Position.Coordinate.Point);
+                    //await Map.TrySetViewAsync(args.Position.Coordinate.Point);
                 }
                 );
         }

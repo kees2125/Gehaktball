@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="EpicAdventure.BlankPage1"
+    x:Class="EpicAdventure.CoordinateView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:EpicAdventure"
@@ -8,22 +8,8 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <SplitView x:Name="Menu" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="45" OpenPaneLength="220">
-            <SplitView.Pane>
-                <StackPanel HorizontalAlignment="Left">
-                    <Button Name="newButton" Content="&#xE700;" Click="newButton_Click" FontFamily="Segoe MDL2 Assets" FontSize="25"></Button>
-                    <ListBox SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged" >
-                        <ListBoxItem Name="Menu1">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Name="addCoordinate" Text="&#xE0C4;" FontFamily="Segoe MDL2 Assets" FontSize="25"></TextBlock>
-                                <TextBlock Name="coordinateText" Text="Ga terug" Margin="20,0,0,0"></TextBlock>
-                            </StackPanel>
-                        </ListBoxItem>
-                    </ListBox>
-                </StackPanel>
-            </SplitView.Pane>
-            <StackPanel HorizontalAlignment="Stretch">
-                <TextBlock x:Name="Settings"  Text="Settings" VerticalAlignment="Top" TextAlignment="Center"/>
+        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" >
+            <StackPanel HorizontalAlignment="Stretch" >
                 <TextBlock Name="tekstCoordinaten" Text="DMS (degrees, minutes, secondes)" FontSize="20" TextAlignment="Center"/>
                 <StackPanel Margin="5">
                     <TextBlock FontSize="20">Lattitude</TextBlock>
@@ -35,7 +21,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <ToggleSwitch Grid.Column="0" x:Name="toggleSwitch" OffContent="N" OnContent="Z"/>
-                        <TextBox  Grid.Column="1" x:Name="Degrees1" Margin="5,0,0,0" Height="3" />
+                        <TextBox  Grid.Column="1" x:Name="Degrees1" Margin="5,0,0,0" Height="3" InputScope="Number" MaxLength="2" />
                         <TextBox  Grid.Column="2" x:Name="Minutes1" Margin="5,0,0,0" Height="1"/>
                         <TextBox  Grid.Column="3" x:Name="Secondes1" Margin="5,0,0,0" Height="1"/>
                     </Grid>
@@ -61,7 +47,7 @@
                         <Button Name="startRoute" Content="Start Route" HorizontalAlignment="Stretch"/>
                     </Grid>
                 </StackPanel>
-                
+
                 <TextBlock Name="textCoordinaten2" Text="Decimal degrees" FontSize="20" TextAlignment="Center"/>
                 <StackPanel Margin="5">
                     <TextBlock FontSize="20">Lattitude</TextBlock>
@@ -88,7 +74,7 @@
                     </Grid>
                 </StackPanel>
             </StackPanel>
-        </SplitView>
+        </ScrollViewer>
     </Grid>
     
 </Page>

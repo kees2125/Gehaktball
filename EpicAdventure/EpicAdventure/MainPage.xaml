@@ -8,27 +8,116 @@
     x:Class="EpicAdventure.MainPage"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <SplitView x:Name="Menu" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="45" OpenPaneLength="220">
+    <Page.Resources>
+        <Style x:Key="NavStackPanel" TargetType="StackPanel">
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="NavIcon" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="Margin" Value="0,5,0,0" />
+        </Style>
+
+        <Style x:Key="NavText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="Margin" Value="20,0,0,0" />
+        </Style>
+
+
+        <Style x:Key="GPSInfoPanel" TargetType="StackPanel">
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,0,10,0" />
+        </Style>
+
+        <Style x:Key="GPSInfoIcon" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Margin" Value="5,5,0,0" />
+        </Style>
+
+        <Style x:Key="GPSInfoText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Margin" Value="15,0,0,0" />
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <RelativePanel Grid.Row="0">
+            <Button RelativePanel.AlignLeftWithPanel="True" Name="NavButton" Click="NavButton_Click" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" FontSize="28" />
+
+            <TextBlock RelativePanel.RightOf="NavButton" FontSize="28" Margin="10,0,0,0" Name="PageTitle" x:Uid="PageTitleDefault"/>
+        </RelativePanel>
+
+        <!-- http://stackoverflow.com/questions/32108362/uwp-swipe-to-open-splitview-pane-->
+        <SplitView Grid.Row="1" Name="NavView" DisplayMode="Overlay" OpenPaneLength="275">
             <SplitView.Pane>
-                <StackPanel HorizontalAlignment="Left">
-                    <Button Name="newButton" Content="&#xE700;" Click="newButton_Click" FontFamily="Segoe MDL2 Assets" FontSize="25"></Button>
-                    <ListBox SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged" >
-                        <ListBoxItem Name="Menu1">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Name="addCoordinate" Text="&#xE713;" FontFamily="Segoe MDL2 Assets" FontSize="25"></TextBlock>
-                                <TextBlock Name="coordinateText" Text="Verander Coordinaten" Margin="20,0,0,0"></TextBlock>
+                <RelativePanel Name="MySplitviewPane" VerticalAlignment="Stretch"
+                      ManipulationMode="TranslateX"
+                      ManipulationCompleted="MySplitviewPane_ManipulationCompleted"
+                      Background="Transparent">
+
+                    <ListBox RelativePanel.AlignTopWithPanel="True" SelectionMode="Single" Name="NavList" SelectionChanged="NavList_SelectionChanged" Tapped="NavList_Tapped">
+                        <!--<ListBoxItem Name="NavListRoute">
+                            <StackPanel Style="{StaticResource NavStackPanel}">
+                                <TextBlock Style="{StaticResource NavIcon}" Text="&#xE7AD;"/>
+                                <TextBlock Style="{StaticResource NavText}" x:Uid="MenuItemRoute" Text="[MenuItemRoute]"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="NavListHelp">
+                            <StackPanel Style="{StaticResource NavStackPanel}">
+                                <TextBlock Style="{StaticResource NavIcon}" Text="&#xE897;"/>
+                                <TextBlock Style="{StaticResource NavText}" x:Uid="MenuItemHelp"/>
+                            </StackPanel>
+                        </ListBoxItem>-->
+                        <ListBoxItem Name="NavListSetCoordinates">
+                            <StackPanel Style="{StaticResource NavStackPanel}">
+                                <TextBlock Style="{StaticResource NavIcon}" Text="&#xE707;"/>
+                                <TextBlock Style="{StaticResource NavText}" Text="Verander Coordinaten"/>
                             </StackPanel>
                         </ListBoxItem>
                     </ListBox>
-                </StackPanel>
+
+                    <StackPanel RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Background="Transparent">
+                        <StackPanel Style="{StaticResource GPSInfoPanel}" Tapped="GPSRefresh_Tapped">
+                            <TextBlock Style="{StaticResource GPSInfoIcon}" Text="&#xE81D;"/>
+                            <TextBlock Style="{StaticResource GPSInfoText}" Text="{Binding Status}"/>
+                        </StackPanel>
+
+                        <StackPanel Style="{StaticResource GPSInfoPanel}">
+                            <TextBlock Style="{StaticResource GPSInfoIcon}" Text="&#xE774;"/>
+                            <TextBlock Style="{StaticResource GPSInfoText}" Text="{Binding Source}"/>
+                        </StackPanel>
+
+                        <StackPanel Style="{StaticResource GPSInfoPanel}">
+                            <TextBlock Style="{StaticResource GPSInfoIcon}" Text="&#xE707;"/>
+                            <TextBlock Style="{StaticResource GPSInfoText}" Text="{Binding Accuracy}"/>
+                        </StackPanel>
+
+                        <TextBlock Text="EpicAdventure @ 2015" Margin="15, 5"/>
+                    </StackPanel>
+                </RelativePanel>
             </SplitView.Pane>
-            <Grid Margin="0,0,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Maps:MapControl x:Name="Map" Grid.Column="1"/>
-            </Grid>
+            <SplitView.Content>
+                <Grid>
+                    <Frame Name="Frame"/>
+
+                    <StackPanel ManipulationMode="TranslateX"
+                          ManipulationCompleted="Grid_ManipulationCompleted"
+                          Width="10"
+                          Background="Transparent"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Stretch">
+                    </StackPanel>
+                </Grid>
+            </SplitView.Content>
         </SplitView>
     </Grid>
 </Page>

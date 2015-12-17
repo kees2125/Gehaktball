@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EpicAdventure.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -37,9 +38,14 @@ namespace EpicAdventure
 
         }
 
-        private void App_BackRequested(object sender, BackRequestedEventArgs e)
+        private static GeoTracker geo = new GeoTracker();
+
+        public static GeoTracker Geo
         {
-            throw new NotImplementedException();
+            get
+            {
+                return geo;
+            }
         }
 
         /// <summary>
@@ -88,7 +94,6 @@ namespace EpicAdventure
             // Ensure the current window is active
             Window.Current.Activate();
             rootFrame.Navigated += RootFrame_Navigated;
-            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
         }
 
         private void RootFrame_Navigated(object sender, NavigationEventArgs e)

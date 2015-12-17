@@ -20,17 +20,17 @@ namespace EpicAdventure
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class BlankPage1 : Page
+    public sealed partial class CoordinateView : Page
     {
-        public BlankPage1()
+        public CoordinateView()
         {
             this.InitializeComponent();
         }
 
-        private void newButton_Click(object sender, RoutedEventArgs e)
-        {
-            Menu.IsPaneOpen = !Menu.IsPaneOpen;
-        }
+        //private void newButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Menu.IsPaneOpen = !Menu.IsPaneOpen;
+        //}
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
