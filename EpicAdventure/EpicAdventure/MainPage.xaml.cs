@@ -37,7 +37,7 @@ namespace EpicAdventure
             this.InitializeComponent();
             Frame.Navigated += Frame_Navigated;
             SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
-            Frame.Navigate(typeof(MapView));
+            Frame.Navigate(typeof(StartView));
             StartTracking();
         }
 
@@ -63,8 +63,8 @@ namespace EpicAdventure
                 Frame.Navigate(typeof(MapView));
             else if (NavListSetCoordinates.IsSelected)
                 Frame.Navigate(typeof(CoordinateView));
-            //else if (NavListRoute.IsSelected)
-            //    Frame.Navigate(typeof(RouteView));
+            else if (NavListHome.IsSelected)
+                Frame.Navigate(typeof(StartView));
         }
 
         private void MySplitviewPane_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
@@ -106,7 +106,8 @@ namespace EpicAdventure
                 //    PageTitle.Text = Util.Loader.GetString("PageTitleRoute");
                 //    NavListRoute.IsSelected = true;
                 //    break;
-                case "waypointview":
+                case "startview":
+                    PageTitle.Text = "Home";
                     //PageTitle.Text = Util.Loader.GetString("PageTitleWaypoint");
                     break;
             }
