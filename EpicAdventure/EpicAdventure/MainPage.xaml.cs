@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using EpicAdventure.Views;
 using EpicAdventure.Helpers;
+using EpicAdventure.ViewModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -37,6 +38,7 @@ namespace EpicAdventure
             Frame.Navigated += Frame_Navigated;
             SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
             Frame.Navigate(typeof(StartView));
+            this.DataContext = new MenuVM();
         }
 
         private void App_BackRequested(object sender, BackRequestedEventArgs e)

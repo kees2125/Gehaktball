@@ -35,7 +35,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <ToggleSwitch Grid.Column="0" x:Name="toggleSwitch2" OffContent="E" OnContent="W"/>
+                        <ToggleSwitch Grid.Column="0" x:Name="toggleSwitch1" OffContent="O" OnContent="W"/>
                         <TextBox  Grid.Column="1" x:Name="Degrees2" Margin="5,0,0,0" Height="3" InputScope="Number" MaxLength="2" />
                         <TextBox  Grid.Column="2" x:Name="Minutes2" Margin="5,0,0,0" Height="1" InputScope="Number" MaxLength="2"/>
                         <TextBox  Grid.Column="3" x:Name="Secondes2" Margin="5,0,0,0" Height="1" InputScope="Number" />
@@ -53,8 +53,10 @@
                     <TextBlock FontSize="20">Lattitude</TextBlock>
                     <Grid Margin="0,10,0,10">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+                        <ToggleSwitch Grid.Column="0" x:Name="toggleSwitch2" OffContent="N" OnContent="Z"/>
                         <TextBox  Grid.Column="1" x:Name="decimalDegrees" Margin="5,0,0,0" Height="3" InputScope="Number"/>
                     </Grid>
                 </StackPanel>
@@ -62,8 +64,10 @@
                     <TextBlock FontSize="20">Longitude</TextBlock>
                     <Grid Margin="0,10,0,10">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+                        <ToggleSwitch Grid.Column="0" x:Name="toggleSwitch3" OffContent="O" OnContent="W"/>
                         <TextBox  Grid.Column="1" x:Name="decimalDegrees2" Margin="5,0,0,0" Height="3" InputScope="Number"/>
                     </Grid>
                     <Grid Margin="0,10,0,10">
