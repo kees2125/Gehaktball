@@ -21,9 +21,9 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <ToggleSwitch Grid.Column="0" x:Name="toggleSwitch" OffContent="N" OnContent="Z"/>
-                        <TextBox  Grid.Column="1" x:Name="Degrees1" Margin="5,0,0,0" Height="3" InputScope="Number" MaxLength="2" />
-                        <TextBox  Grid.Column="2" x:Name="Minutes1" Margin="5,0,0,0" Height="1" InputScope="Number" MaxLength="2"/>
-                        <TextBox  Grid.Column="3" x:Name="Secondes1" Margin="5,0,0,0" Height="1" InputScope="Number"/>
+                        <TextBox  Grid.Column="1" x:Name="Degrees1" Margin="5,0,0,0" Height="3" InputScope="Number" MaxLength="3" TextChanged="FilledCoordinatesTest"/>
+                        <TextBox  Grid.Column="2" x:Name="Minutes1" Margin="5,0,0,0" Height="1" InputScope="Number" MaxLength="2" TextChanged="FilledCoordinatesTest"/>
+                        <TextBox  Grid.Column="3" x:Name="Secondes1" Margin="5,0,0,0" Height="1" InputScope="Number" TextChanged="FilledCoordinatesTest"/>
                     </Grid>
                 </StackPanel>
                 <StackPanel Margin="5">
@@ -36,15 +36,33 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <ToggleSwitch Grid.Column="0" x:Name="toggleSwitch1" OffContent="O" OnContent="W"/>
-                        <TextBox  Grid.Column="1" x:Name="Degrees2" Margin="5,0,0,0" Height="3" InputScope="Number" MaxLength="2" />
-                        <TextBox  Grid.Column="2" x:Name="Minutes2" Margin="5,0,0,0" Height="1" InputScope="Number" MaxLength="2"/>
-                        <TextBox  Grid.Column="3" x:Name="Secondes2" Margin="5,0,0,0" Height="1" InputScope="Number" />
+                        <TextBox  Grid.Column="1" x:Name="Degrees2" Margin="5,0,0,0" Height="3" InputScope="Number" MaxLength="3" TextChanged="FilledCoordinatesTest" />
+                        <TextBox  Grid.Column="2" x:Name="Minutes2" Margin="5,0,0,0" Height="1" InputScope="Number" MaxLength="2" TextChanged="FilledCoordinatesTest"/>
+                        <TextBox  Grid.Column="3" x:Name="Secondes2" Margin="5,0,0,0" Height="1" InputScope="Number" TextChanged="FilledCoordinatesTest"/>
                     </Grid>
                     <Grid Margin="0,10,0,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button Name="startRoute" Content="Start Route" HorizontalAlignment="Stretch"/>
+                        <Button Name="startRoute" Content="Start Route" HorizontalAlignment="Stretch" Click="startRoute_Click " IsEnabled="{Binding ElementName=txtName, Path=Text.Length, Mode=OneWay}">
+                           
+  
+
+                            <!--<Button.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding FirstName}" Value="{x:Null}" />
+                                                <Condition Binding="{Binding MiddleName}" Value="{x:Null}" />
+                                                <Condition Binding="{Binding LastName}" Value="{x:Null}" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Button.IsEnabled" Value="False" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>-->
+                        </Button>
                     </Grid>
                 </StackPanel>
 
