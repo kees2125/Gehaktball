@@ -75,7 +75,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <ToggleSwitch Grid.Column="0" x:Name="toggleSwitch2" OffContent="N" OnContent="Z"/>
-                        <TextBox  Grid.Column="1" x:Name="decimalDegrees" Margin="5,0,0,0" Height="3" InputScope="Number"/>
+                        <TextBox  Grid.Column="1" x:Name="decimalDegrees" Margin="5,0,0,0" Height="3" InputScope="Number" TextChanged="FilledCoordinatesTest1"/>
                     </Grid>
                 </StackPanel>
                 <StackPanel Margin="5">
@@ -86,7 +86,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <ToggleSwitch Grid.Column="0" x:Name="toggleSwitch3" OffContent="O" OnContent="W"/>
-                        <TextBox  Grid.Column="1" x:Name="decimalDegrees2" Margin="5,0,0,0" Height="3" InputScope="Number"/>
+                        <TextBox  Grid.Column="1" x:Name="decimalDegrees2" Margin="5,0,0,0" Height="3" InputScope="Number" TextChanged="FilledCoordinatesTest1"/>
                     </Grid>
                     <Grid Margin="0,10,0,10">
                         <Grid.ColumnDefinitions>
