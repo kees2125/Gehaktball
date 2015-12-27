@@ -78,8 +78,8 @@ namespace EpicAdventure
             {
                 convertDMS1 = int.Parse(Degrees2.Text) + (((double.Parse(Minutes2.Text)) * 60 + double.Parse(Secondes2.Text)) / 3600);
             }
-            decimalDegrees.Text = convertDMS.ToString();
-            decimalDegrees2.Text = convertDMS1.ToString();
+            //decimalDegrees.Text = convertDMS.ToString();
+            //decimalDegrees2.Text = convertDMS1.ToString();
 
         }
 
