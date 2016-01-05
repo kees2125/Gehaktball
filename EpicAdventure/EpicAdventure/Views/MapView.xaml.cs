@@ -39,7 +39,7 @@ namespace EpicAdventure.Views
             this.DataContext = new MapVM();
 
             CurrenPosition = new MapIcon();
-
+            
             App.Geo.PositionChanged += Geo_PositionChanged;
             StartTracking();
         }
@@ -54,12 +54,14 @@ namespace EpicAdventure.Views
 
         private void DrawCurrenPosition(Geopoint p)
         {
+          
             CurrenPosition.Location = p;
             CurrenPosition.NormalizedAnchorPoint = new Point(0.5, 1.0);
             CurrenPosition.Title = "Current Position";
             CurrenPosition.ZIndex = 999;
-
+            Map.MapElements.Remove(CurrenPosition);
             Map.MapElements.Add(CurrenPosition);
+
         }
         private void Geo_StatusChanged(Geolocator sender, StatusChangedEventArgs args)
         {
@@ -82,9 +84,10 @@ namespace EpicAdventure.Views
                         temp = args.Position.Coordinate.Point.Position;
 
                     MapPolyline mapPolyline = new MapPolyline();
-                    mapPolyline.Path = new Geopath(
-                        new List<BasicGeoposition>() {
-                    p,temp });
+                    var l = new List<BasicGeoposition>();
+                    l.Add(p);
+                    l.Add(temp);
+                    mapPolyline.Path = new Geopath(l);
 
 
 
