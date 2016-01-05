@@ -92,7 +92,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="1"  Name="startRoute1" Content="Start Route" HorizontalAlignment="Stretch" />
+                        <Button Grid.Column="1"  Name="startRoute1" Content="Start Route" HorizontalAlignment="Stretch" Click="startRoute1_Click"/>
                     </Grid>
                 </StackPanel>
             </StackPanel>

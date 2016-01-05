@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EpicAdventure.Views;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -31,6 +32,7 @@ namespace EpicAdventure
             this.InitializeComponent();
             startRoute.IsEnabled = false;
             startRoute1.IsEnabled = false;
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         //private void newButton_Click(object sender, RoutedEventArgs e)
@@ -84,6 +86,7 @@ namespace EpicAdventure
             destination = new BasicGeoposition();
             destination.Latitude = Lattitude;
             destination.Longitude = Longitude;
+            Frame.Navigate(typeof(StartView));
         }
 
 
@@ -107,6 +110,10 @@ namespace EpicAdventure
             {
                 Lattitude = double.Parse(decimalDegrees2.Text);
             }
+            destination = new BasicGeoposition();
+            destination.Latitude = Lattitude;
+            destination.Longitude = Longitude;
+            Frame.Navigate(typeof(StartView));
         }
 
         private void FilledCoordinatesTest(object sender, TextChangedEventArgs e)
