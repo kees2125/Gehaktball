@@ -27,6 +27,7 @@ namespace EpicAdventure.Views
     /// </summary>
     public sealed partial class MapView : Page
     {
+        List<BasicGeoposition> l = new List<BasicGeoposition>();
         MapIcon CurrenPosition;
         Geolocator geo;
         bool PositionTracking = false;
@@ -51,20 +52,16 @@ namespace EpicAdventure.Views
                 DrawCurrenPosition(new Geopoint(args.Position.Coordinate.Point.Position));
                 BasicGeoposition p = new BasicGeoposition();
                 p = args.Position.Coordinate.Point.Position;
-                if (temp.ToString() == null)
-                    temp = args.Position.Coordinate.Point.Position;
-
                 MapPolyline mapPolyline = new MapPolyline();
-                var l = new List<BasicGeoposition>();
+                
                 l.Add(p);
-                l.Add(temp);
                 mapPolyline.Path = new Geopath(l);
-
-
+                temp = args.Position.Coordinate.Point.Position;
 
                 mapPolyline.StrokeColor = Colors.Black;
                 mapPolyline.StrokeThickness = 3;
                 mapPolyline.StrokeDashed = true;
+                Map.MapElements.Remove(mapPolyline);
                 Map.MapElements.Add(mapPolyline);
 
 
@@ -95,35 +92,35 @@ namespace EpicAdventure.Views
                 );
         }
 
-        private async void Geo_positionChanged(Geolocator sender, PositionChangedEventArgs args)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                async () =>
-                {
-                    BasicGeoposition p = new BasicGeoposition();
-                    p = args.Position.Coordinate.Point.Position;
-                    if (temp.ToString() == null)
-                        temp = args.Position.Coordinate.Point.Position;
+        //private async void Geo_positionChanged(Geolocator sender, PositionChangedEventArgs args)
+        //{
+        //    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+        //        async () =>
+        //        {
+        //            BasicGeoposition p = new BasicGeoposition();
+        //            p = args.Position.Coordinate.Point.Position;
+        //            if (temp.ToString() == null)
+        //                temp = args.Position.Coordinate.Point.Position;
 
-                    MapPolyline mapPolyline = new MapPolyline();
-                    var l = new List<BasicGeoposition>();
-                    l.Add(p);
-                    l.Add(temp);
-                    mapPolyline.Path = new Geopath(l);
-
-
-
-                    mapPolyline.StrokeColor = Colors.Black;
-                    mapPolyline.StrokeThickness = 3;
-                    mapPolyline.StrokeDashed = true;
-                    Map.MapElements.Add(mapPolyline);
+        //            MapPolyline mapPolyline = new MapPolyline();
+        //            var l = new List<BasicGeoposition>();
+        //            l.Add(p);
+        //            l.Add(temp);
+        //            mapPolyline.Path = new Geopath(l);
 
 
 
-                    await Map.TrySetViewAsync(args.Position.Coordinate.Point);
-                }
-                );
-        }
+        //            mapPolyline.StrokeColor = Colors.Black;
+        //            mapPolyline.StrokeThickness = 3;
+        //            mapPolyline.StrokeDashed = true;
+        //            Map.MapElements.Add(mapPolyline);
+
+
+
+        //            await Map.TrySetViewAsync(args.Position.Coordinate.Point);
+        //        }
+        //        );
+        //}
         private async void StartTracking()
         {
             // Request permission to access location
