@@ -49,6 +49,7 @@ namespace EpicAdventure.Views
             Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
             {
                 DrawCurrenPosition(new Geopoint(args.Position.Coordinate.Point.Position));
+                drawline();
             });
         }
 
@@ -73,7 +74,7 @@ namespace EpicAdventure.Views
                 );
         }
 
-        private async void Geo_positionChanged(Geolocator sender, PositionChangedEventArgs args)
+        private async void drawline()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async () =>
