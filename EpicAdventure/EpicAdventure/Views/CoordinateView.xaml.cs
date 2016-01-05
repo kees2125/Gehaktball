@@ -25,17 +25,12 @@ namespace EpicAdventure
     {
         double Lattitude;
         double Longitude;
-        double lat1;
-        double lat2;
-        double lon1;
-        double lon2;
         static Geocoordinate destination;
         public CoordinateView()
         {
             this.InitializeComponent();
             startRoute.IsEnabled = false;
             startRoute1.IsEnabled = false;
-            Degrees1.Text= getDistanceFromLatLonInKm(51.586136510447766, 4.796798229217529, 51.57970981318274, -4.805209636688232).ToString();
         }
 
         //private void newButton_Click(object sender, RoutedEventArgs e)

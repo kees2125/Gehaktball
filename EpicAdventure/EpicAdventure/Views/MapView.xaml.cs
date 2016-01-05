@@ -30,6 +30,7 @@ namespace EpicAdventure.Views
         List<BasicGeoposition> l = new List<BasicGeoposition>();
         MapIcon CurrenPosition;
         Geolocator geo;
+        public static BasicGeoposition position;
         bool PositionTracking = false;
         BasicGeoposition temp;
         public MapView()
@@ -52,6 +53,7 @@ namespace EpicAdventure.Views
                 DrawCurrenPosition(new Geopoint(args.Position.Coordinate.Point.Position));
                 BasicGeoposition p = new BasicGeoposition();
                 p = args.Position.Coordinate.Point.Position;
+                position = p;
                 MapPolyline mapPolyline = new MapPolyline();
                 
                 l.Add(p);
