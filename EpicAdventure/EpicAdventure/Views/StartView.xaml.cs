@@ -47,6 +47,15 @@ namespace EpicAdventure.Views
         {
             this.InitializeComponent();
             _compass = Compass.GetDefault(); // Get the default compass object
+            this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            //this.DataContext = new MapVM();
+
+            //CurrenPosition = new MapIcon();
+            
+            //App.Geo.PositionChanged += Geo_PositionChanged;
+            //StartTracking();
 
             // Assign an event handler for the compass reading-changed event
             if (_compass != null)
