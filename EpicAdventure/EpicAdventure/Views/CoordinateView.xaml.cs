@@ -25,7 +25,7 @@ namespace EpicAdventure
     {
         double Lattitude;
         double Longitude;
-        static Geocoordinate destination;
+        public static BasicGeoposition destination;
         public CoordinateView()
         {
             this.InitializeComponent();
@@ -81,27 +81,13 @@ namespace EpicAdventure
             //decimalDegrees.Text = convertDMS.ToString();
             //decimalDegrees2.Text = convertDMS1.ToString();
             //destination = new Geocoordinate();
+            destination = new BasicGeoposition();
+            destination.Latitude = Lattitude;
+            destination.Longitude = Longitude;
         }
 
-        public double getDistanceFromLatLonInKm(double lat1,double lon1,double lat2,double lon2)
-        {
-            var R = 6371; // Radius of the earth in km
-            var dLat = deg2rad((lat2 - lat1));  // deg2rad below
-            var dLon = deg2rad(lon2 - lon1);
-            var a =
-              Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-              Math.Cos(deg2rad(lat1)) * Math.Cos(deg2rad(lat2)) *
-              Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
-              ;
-            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            var d = R * c; // Distance in km
-            return d;
-        }
 
-        public double deg2rad(double deg)
-        {
-            return deg * (Math.PI / 180);
-        }
+       
 
         private void startRoute1_Click(object sender, RoutedEventArgs e)
         {

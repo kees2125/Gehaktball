@@ -38,6 +38,7 @@ namespace EpicAdventure.Views
                 String value = String.Format("{0,5:0.00}", reading.HeadingTrueNorth);
                 IMAGETRANSFORM.Rotation = -double.Parse(value);
                 IMAGETRANSFORM1.Rotation = -double.Parse(value);
+                Afstand.Text = "Afstand: " + MapView.distance;
 
             });
         }

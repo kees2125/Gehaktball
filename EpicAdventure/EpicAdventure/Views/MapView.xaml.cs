@@ -1,17 +1,8 @@
 ﻿using EpicAdventure.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Devices.Geolocation;
 using Windows.UI.Xaml.Controls.Maps;
@@ -27,6 +18,7 @@ namespace EpicAdventure.Views
     /// </summary>
     public sealed partial class MapView : Page
     {
+        public static double distance = 0;
         List<BasicGeoposition> l = new List<BasicGeoposition>();
         MapIcon CurrenPosition;
         Geolocator geo;
@@ -66,7 +58,10 @@ namespace EpicAdventure.Views
                 Map.MapElements.Remove(mapPolyline);
                 Map.MapElements.Add(mapPolyline);
 
-
+                if(CoordinateView.destination.Longitude != null)
+                {
+                    distance = getDistanceFromLatLonInKm(position.Latitude, position.Longitude, CoordinateView.destination.Latitude, CoordinateView.destination.Longitude);
+                }
 
                 await Map.TrySetViewAsync(args.Position.Coordinate.Point);
             });
@@ -84,6 +79,25 @@ namespace EpicAdventure.Views
             Map.MapElements.Add(CurrenPosition);
 
         }
+        public double deg2rad(double deg)
+        {
+            return deg * (Math.PI / 180);
+        }
+        public double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
+        {
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad((lat2 - lat1));  // deg2rad below
+            var dLon = deg2rad(lon2 - lon1);
+            var a =
+              Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+              Math.Cos(deg2rad(lat1)) * Math.Cos(deg2rad(lat2)) *
+              Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
+              ;
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var d = R * c; // Distance in km
+            return d;
+        }
+
         private void Geo_StatusChanged(Geolocator sender, StatusChangedEventArgs args)
         {
             Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
