@@ -46,11 +46,32 @@ namespace EpicAdventure.Views
 
         private void Geo_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
         {
-            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
+            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
             {
                 DrawCurrenPosition(new Geopoint(args.Position.Coordinate.Point.Position));
-                drawline();
+                BasicGeoposition p = new BasicGeoposition();
+                p = args.Position.Coordinate.Point.Position;
+                if (temp.ToString() == null)
+                    temp = args.Position.Coordinate.Point.Position;
+
+                MapPolyline mapPolyline = new MapPolyline();
+                var l = new List<BasicGeoposition>();
+                l.Add(p);
+                l.Add(temp);
+                mapPolyline.Path = new Geopath(l);
+
+
+
+                mapPolyline.StrokeColor = Colors.Black;
+                mapPolyline.StrokeThickness = 3;
+                mapPolyline.StrokeDashed = true;
+                Map.MapElements.Add(mapPolyline);
+
+
+
+                await Map.TrySetViewAsync(args.Position.Coordinate.Point);
             });
+
         }
 
         private void DrawCurrenPosition(Geopoint p)
@@ -74,7 +95,7 @@ namespace EpicAdventure.Views
                 );
         }
 
-        private async void drawline()
+        private async void Geo_positionChanged(Geolocator sender, PositionChangedEventArgs args)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async () =>
