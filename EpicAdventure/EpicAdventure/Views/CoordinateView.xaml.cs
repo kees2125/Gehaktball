@@ -25,12 +25,17 @@ namespace EpicAdventure
     {
         double Lattitude;
         double Longitude;
+        double lat1;
+        double lat2;
+        double lon1;
+        double lon2;
         static Geocoordinate destination;
         public CoordinateView()
         {
             this.InitializeComponent();
             startRoute.IsEnabled = false;
             startRoute1.IsEnabled = false;
+            Degrees1.Text= getDistanceFromLatLonInKm(51.586136510447766, 4.796798229217529, 51.57970981318274, -4.805209636688232).ToString();
         }
 
         //private void newButton_Click(object sender, RoutedEventArgs e)
@@ -83,25 +88,25 @@ namespace EpicAdventure
             //destination = new Geocoordinate();
         }
 
-        //private double getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2)
-        //{
-        //    var R = 6371; // Radius of the earth in km
-        //    var dLat = deg2rad(lat2 - lat1);  // deg2rad below
-        //    var dLon = deg2rad(lon2 - lon1);
-        //    var a =
-        //      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        //      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-        //      Math.sin(dLon / 2) * Math.sin(dLon / 2)
-        //      ;
-        //    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        //    var d = R * c; // Distance in km
-        //    return d;
-        //}
+        public double getDistanceFromLatLonInKm(double lat1,double lon1,double lat2,double lon2)
+        {
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad((lat2 - lat1));  // deg2rad below
+            var dLon = deg2rad(lon2 - lon1);
+            var a =
+              Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+              Math.Cos(deg2rad(lat1)) * Math.Cos(deg2rad(lat2)) *
+              Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
+              ;
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var d = R * c; // Distance in km
+            return d;
+        }
 
-        //function deg2rad(deg)
-        //{
-        //    return deg * (Math.PI / 180)
-        //}
+        public double deg2rad(double deg)
+        {
+            return deg * (Math.PI / 180);
+        }
 
         private void startRoute1_Click(object sender, RoutedEventArgs e)
         {
