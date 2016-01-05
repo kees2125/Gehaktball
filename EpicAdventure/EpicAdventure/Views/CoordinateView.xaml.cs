@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,10 +23,9 @@ namespace EpicAdventure
     /// </summary>
     public sealed partial class CoordinateView : Page
     {
-        double convertDMS = 0;
-        double convertDMS1 = 0;
-        double convertDM = 0;
-        double convertDM1 = 0;
+        double Lattitude;
+        double Longitude;
+        static Geocoordinate destination;
         public CoordinateView()
         {
             this.InitializeComponent();
@@ -62,44 +62,64 @@ namespace EpicAdventure
         //}
         private void startRoute_Click(object sender, RoutedEventArgs e)
         {
-            if(toggleSwitch.IsOn)
+            if (toggleSwitch.IsOn)
             {
-                convertDMS = - (int.Parse(Degrees1.Text) + (((double.Parse(Minutes1.Text)) * 60 + double.Parse(Secondes1.Text)) / 3600));
+                Longitude = -(int.Parse(Degrees1.Text) + (((double.Parse(Minutes1.Text)) * 60 + double.Parse(Secondes1.Text)) / 3600));
             }
             else
             {
-                convertDMS = int.Parse(Degrees1.Text) + (((double.Parse(Minutes1.Text)) * 60 + double.Parse(Secondes1.Text)) / 3600);
+                Longitude = int.Parse(Degrees1.Text) + (((double.Parse(Minutes1.Text)) * 60 + double.Parse(Secondes1.Text)) / 3600);
             }
             if (toggleSwitch1.IsOn)
             {
-                convertDMS1 = -(int.Parse(Degrees2.Text) + (((double.Parse(Minutes2.Text)) * 60 + double.Parse(Secondes2.Text)) / 3600));
+                Lattitude = -(int.Parse(Degrees2.Text) + (((double.Parse(Minutes2.Text)) * 60 + double.Parse(Secondes2.Text)) / 3600));
             }
             else
             {
-                convertDMS1 = int.Parse(Degrees2.Text) + (((double.Parse(Minutes2.Text)) * 60 + double.Parse(Secondes2.Text)) / 3600);
+                Lattitude = int.Parse(Degrees2.Text) + (((double.Parse(Minutes2.Text)) * 60 + double.Parse(Secondes2.Text)) / 3600);
             }
             //decimalDegrees.Text = convertDMS.ToString();
             //decimalDegrees2.Text = convertDMS1.ToString();
-
+            //destination = new Geocoordinate();
         }
+
+        //private double getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2)
+        //{
+        //    var R = 6371; // Radius of the earth in km
+        //    var dLat = deg2rad(lat2 - lat1);  // deg2rad below
+        //    var dLon = deg2rad(lon2 - lon1);
+        //    var a =
+        //      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        //      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        //      Math.sin(dLon / 2) * Math.sin(dLon / 2)
+        //      ;
+        //    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        //    var d = R * c; // Distance in km
+        //    return d;
+        //}
+
+        //function deg2rad(deg)
+        //{
+        //    return deg * (Math.PI / 180)
+        //}
 
         private void startRoute1_Click(object sender, RoutedEventArgs e)
         {
             if (toggleSwitch2.IsOn)
             {
-                convertDM = -(double.Parse(decimalDegrees.Text));
+                Longitude = -(double.Parse(decimalDegrees.Text));
             }
             else
             {
-                convertDM = double.Parse(decimalDegrees.Text);
+                Longitude = double.Parse(decimalDegrees.Text);
             }
             if (toggleSwitch3.IsOn)
             {
-                convertDM1 = -(double.Parse(decimalDegrees2.Text));
+                Lattitude = -(double.Parse(decimalDegrees2.Text));
             }
             else
             {
-                convertDM1 = double.Parse(decimalDegrees2.Text);
+                Lattitude = double.Parse(decimalDegrees2.Text);
             }
         }
 
