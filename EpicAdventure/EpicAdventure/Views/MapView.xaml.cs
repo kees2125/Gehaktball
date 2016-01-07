@@ -8,6 +8,7 @@ using Windows.Devices.Geolocation;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Core;
 using Windows.UI;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -19,6 +20,8 @@ namespace EpicAdventure.Views
     public sealed partial class MapView : Page
     {
         public static double distance = 0;
+        int counter = 0;
+        bool playing = true;
         List<BasicGeoposition> l = new List<BasicGeoposition>();
         MapIcon CurrenPosition;
         Geolocator geo;
@@ -57,11 +60,27 @@ namespace EpicAdventure.Views
                  mapPolyline.StrokeDashed = true;
                  Map.MapElements.Remove(mapPolyline);
                  Map.MapElements.Add(mapPolyline);
-
+              
                  if (CoordinateView.destination.Longitude != null)
                  {
                      distance = getDistanceFromLatLonInKm(CoordinateView.Lattitude1, CoordinateView.Longitude1, position.Latitude, position.Longitude);
                      StartVM.Afstand = "Afstand: " + MapView.distance;
+
+                     if(distance < 0.020)
+                     {
+                         counter++;
+                     }
+                     else
+                     {
+                         counter = 0;
+                     }
+                 }
+
+                 if(counter >2 && playing == true)
+                 {
+                     var dialog = new MessageDialog("You found your treasure be happy or somthing");
+                     playing = false;
+                     await dialog.ShowAsync();
                  }
                  await Map.TrySetViewAsync(args.Position.Coordinate.Point);
              });
