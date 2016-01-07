@@ -97,31 +97,7 @@ namespace EpicAdventure
             Frame.Navigate(typeof(StartView));
         }
 
-
-
-        private void Degrees1_KeyDown(object sender, KeyEventArgs e)
-        {
-            Degrees2.Text = e.ToString();
-            if (e.ToString() == ",")
-                Degrees1.Text = Degrees1.Text.Replace(',', '.');
-            Degrees1.Select(Degrees1.Text.Length, 0);
-        }
-
-        //private void Degrees1_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (!char.IsControl(e.KeyValue)
-        //       && !char.IsDigit(e.KeyChar)
-        //       && e.KeyChar != '.' && e.KeyChar != '+' && e.KeyChar != '-'
-        //       && e.KeyChar != '(' && e.KeyChar != ')' && e.KeyChar != '*'
-        //       && e.KeyChar != '/')
-        //    {
-        //        e.Handled = true;
-        //        return;
-        //    }
-        //    e.Handled = false;
-        //    return;
-        //}
-
+        
         public double deg2rad(double deg)
         {
             return deg * (Math.PI / 180);
@@ -140,7 +116,7 @@ namespace EpicAdventure
             var d = R * c; // Distance in km
             return d;
         }
-       
+
 
         private void startRoute1_Click(object sender, RoutedEventArgs e)
         {
@@ -160,6 +136,16 @@ namespace EpicAdventure
             {
                 Longitude1 = double.Parse(decimalDegrees2.Text);
             }
+            foreach (char i in decimalDegrees.Text)
+            {
+
+                if (i == ',')
+                {
+                    Degrees1.Text.Replace(i, '.');
+                    Degrees2.Text = "ja";
+                    Minutes1.Text = Degrees1.Text;
+                }
+            }
             destination = new BasicGeoposition();
             destination.Latitude = Lattitude1;
             destination.Longitude = Longitude1;
@@ -170,14 +156,7 @@ namespace EpicAdventure
 
         private void FilledCoordinatesTest(object sender, TextChangedEventArgs e)
         {
-            if (Degrees1.Text.Length <2)
-            {
-                startRoute.IsEnabled = false;
-                //Degrees2.Text = ;
-                if (e.ToString() == ",")
-                Degrees1.Text = Degrees1.Text.Replace(',', '.');
-                Degrees1.Select(Degrees1.Text.Length, 0);
-            }
+            if (Degrees1.Text.Length <2) {startRoute.IsEnabled = false;}
             else if (Minutes1.Text.Length <1) { startRoute.IsEnabled = false; }
             else if (Secondes1.Text.Length <2){ startRoute.IsEnabled = false; }
             else if (Degrees2.Text.Length < 2) { startRoute.IsEnabled = false; }

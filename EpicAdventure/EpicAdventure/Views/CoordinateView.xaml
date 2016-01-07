@@ -21,7 +21,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <ToggleSwitch Grid.Column="0" x:Name="toggleSwitch" OffContent="N" OnContent="Z"/>
-                        <TextBox  Grid.Column="1" x:Name="Degrees1" Margin="5,0,0,0" Height="3" InputScope="Number" MaxLength="3" TextChanged="FilledCoordinatesTest" />
+                        <TextBox  Grid.Column="1" x:Name="Degrees1" Margin="5,0,0,0" Height="3" InputScope="Number" MaxLength="3" TextChanged="FilledCoordinatesTest"/>
                         <TextBox  Grid.Column="2" x:Name="Minutes1" Margin="5,0,0,0" Height="1" InputScope="Number" MaxLength="2" TextChanged="FilledCoordinatesTest"/>
                         <TextBox  Grid.Column="3" x:Name="Secondes1" Margin="5,0,0,0" Height="1" InputScope="Number" TextChanged="FilledCoordinatesTest"/>
                     </Grid>
