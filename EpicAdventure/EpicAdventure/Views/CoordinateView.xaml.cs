@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -27,6 +28,8 @@ namespace EpicAdventure
         double Lattitude;
         double Longitude;
         public static BasicGeoposition destination;
+        public static double Lattitude1;
+        public static double Longitude1;
         public CoordinateView()
         {
             this.InitializeComponent();
@@ -35,6 +38,10 @@ namespace EpicAdventure
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
+        public double getLattitude()
+        {
+            return Lattitude;
+        }
         //private void newButton_Click(object sender, RoutedEventArgs e)
         //{
         //    Menu.IsPaneOpen = !Menu.IsPaneOpen;
@@ -66,59 +73,111 @@ namespace EpicAdventure
         {
             if (toggleSwitch.IsOn)
             {
-                Longitude = -(int.Parse(Degrees1.Text) + (((double.Parse(Minutes1.Text)) * 60 + double.Parse(Secondes1.Text)) / 3600));
+                Lattitude1 = -(int.Parse(Degrees1.Text) + (((double.Parse(Minutes1.Text)) * 60 + double.Parse(Secondes1.Text)) / 3600));
             }
             else
             {
-                Longitude = int.Parse(Degrees1.Text) + (((double.Parse(Minutes1.Text)) * 60 + double.Parse(Secondes1.Text)) / 3600);
+                Lattitude1 = int.Parse(Degrees1.Text) + (((double.Parse(Minutes1.Text)) * 60 + double.Parse(Secondes1.Text)) / 3600);
             }
             if (toggleSwitch1.IsOn)
             {
-                Lattitude = -(int.Parse(Degrees2.Text) + (((double.Parse(Minutes2.Text)) * 60 + double.Parse(Secondes2.Text)) / 3600));
+                Longitude1 = -(int.Parse(Degrees2.Text) + (((double.Parse(Minutes2.Text)) * 60 + double.Parse(Secondes2.Text)) / 3600));
             }
             else
             {
-                Lattitude = int.Parse(Degrees2.Text) + (((double.Parse(Minutes2.Text)) * 60 + double.Parse(Secondes2.Text)) / 3600);
+                Longitude1 = int.Parse(Degrees2.Text) + (((double.Parse(Minutes2.Text)) * 60 + double.Parse(Secondes2.Text)) / 3600);
             }
             //decimalDegrees.Text = convertDMS.ToString();
             //decimalDegrees2.Text = convertDMS1.ToString();
             //destination = new Geocoordinate();
+
             destination = new BasicGeoposition();
-            destination.Latitude = Lattitude;
-            destination.Longitude = Longitude;
+            destination.Latitude = Lattitude1;
+            destination.Longitude = Longitude1;
             Frame.Navigate(typeof(StartView));
         }
 
 
+
+        private void Degrees1_KeyDown(object sender, KeyEventArgs e)
+        {
+            Degrees2.Text = e.ToString();
+            if (e.ToString() == ",")
+                Degrees1.Text = Degrees1.Text.Replace(',', '.');
+            Degrees1.Select(Degrees1.Text.Length, 0);
+        }
+
+        //private void Degrees1_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (!char.IsControl(e.KeyValue)
+        //       && !char.IsDigit(e.KeyChar)
+        //       && e.KeyChar != '.' && e.KeyChar != '+' && e.KeyChar != '-'
+        //       && e.KeyChar != '(' && e.KeyChar != ')' && e.KeyChar != '*'
+        //       && e.KeyChar != '/')
+        //    {
+        //        e.Handled = true;
+        //        return;
+        //    }
+        //    e.Handled = false;
+        //    return;
+        //}
+
+        public double deg2rad(double deg)
+        {
+            return deg * (Math.PI / 180);
+        }
+        public double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
+        {
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad((lat2 - lat1));  // deg2rad below
+            var dLon = deg2rad(lon2 - lon1);
+            var a =
+              Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+              Math.Cos(deg2rad(lat1)) * Math.Cos(deg2rad(lat2)) *
+              Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
+              ;
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var d = R * c; // Distance in km
+            return d;
+        }
        
 
         private void startRoute1_Click(object sender, RoutedEventArgs e)
         {
             if (toggleSwitch2.IsOn)
             {
-                Longitude = -(double.Parse(decimalDegrees.Text));
+                Lattitude1 = -(double.Parse(decimalDegrees.Text));
             }
             else
             {
-                Longitude = double.Parse(decimalDegrees.Text);
+                Lattitude1 = double.Parse(decimalDegrees.Text);
             }
             if (toggleSwitch3.IsOn)
             {
-                Lattitude = -(double.Parse(decimalDegrees2.Text));
+                Longitude1 = -(double.Parse(decimalDegrees2.Text));
             }
             else
             {
-                Lattitude = double.Parse(decimalDegrees2.Text);
+                Longitude1 = double.Parse(decimalDegrees2.Text);
             }
             destination = new BasicGeoposition();
-            destination.Latitude = Lattitude;
-            destination.Longitude = Longitude;
+            destination.Latitude = Lattitude1;
+            destination.Longitude = Longitude1;
+            Degrees2.Text = destination.Latitude.ToString();
             Frame.Navigate(typeof(StartView));
+            Degrees1.Text= getDistanceFromLatLonInKm(51.5719149, 4.768323000000009, Longitude1, Lattitude1).ToString();
         }
 
         private void FilledCoordinatesTest(object sender, TextChangedEventArgs e)
         {
-            if (Degrees1.Text.Length <2) { startRoute.IsEnabled = false; }
+            if (Degrees1.Text.Length <2)
+            {
+                startRoute.IsEnabled = false;
+                //Degrees2.Text = ;
+                if (e.ToString() == ",")
+                Degrees1.Text = Degrees1.Text.Replace(',', '.');
+                Degrees1.Select(Degrees1.Text.Length, 0);
+            }
             else if (Minutes1.Text.Length <1) { startRoute.IsEnabled = false; }
             else if (Secondes1.Text.Length <2){ startRoute.IsEnabled = false; }
             else if (Degrees2.Text.Length < 2) { startRoute.IsEnabled = false; }

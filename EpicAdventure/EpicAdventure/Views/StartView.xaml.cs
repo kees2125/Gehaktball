@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using EpicAdventure.Views;
+using EpicAdventure.ViewModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -46,6 +47,7 @@ namespace EpicAdventure.Views
 
         public StartView()
         {
+            this.DataContext = new StartVM();
             this.InitializeComponent();
             _compass = Compass.GetDefault(); // Get the default compass object
             this.InitializeComponent();

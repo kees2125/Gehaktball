@@ -102,6 +102,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\StartVM.cs" />
     <Compile Include="Views\CompTEST.xaml.cs">
       <DependentUpon>CompTEST.xaml</DependentUpon>
     </Compile>

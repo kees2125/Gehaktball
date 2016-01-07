@@ -38,33 +38,32 @@ namespace EpicAdventure.Views
             StartTracking();
         }
 
-        private void Geo_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
+        private async void Geo_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
         {
-            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
-            {
-                DrawCurrenPosition(new Geopoint(args.Position.Coordinate.Point.Position));
-                BasicGeoposition p = new BasicGeoposition();
-                p = args.Position.Coordinate.Point.Position;
-                position = p;
-                MapPolyline mapPolyline = new MapPolyline();
-                
-                l.Add(p);
-                mapPolyline.Path = new Geopath(l);
-                temp = args.Position.Coordinate.Point.Position;
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
+             {
+                 DrawCurrenPosition(new Geopoint(args.Position.Coordinate.Point.Position));
+                 BasicGeoposition p = new BasicGeoposition();
+                 p = args.Position.Coordinate.Point.Position;
+                 position = p;
+                 MapPolyline mapPolyline = new MapPolyline();
 
-                mapPolyline.StrokeColor = Colors.Black;
-                mapPolyline.StrokeThickness = 3;
-                mapPolyline.StrokeDashed = true;
-                Map.MapElements.Remove(mapPolyline);
-                Map.MapElements.Add(mapPolyline);
+                 l.Add(p);
+                 mapPolyline.Path = new Geopath(l);
+                 temp = args.Position.Coordinate.Point.Position;
 
-                if(CoordinateView.destination.Longitude != null)
-                {
-                    distance = getDistanceFromLatLonInKm(position.Latitude, position.Longitude, CoordinateView.destination.Latitude, CoordinateView.destination.Longitude);
-                }
+                 mapPolyline.StrokeColor = Colors.Black;
+                 mapPolyline.StrokeThickness = 3;
+                 mapPolyline.StrokeDashed = true;
+                 Map.MapElements.Remove(mapPolyline);
+                 Map.MapElements.Add(mapPolyline);
 
-                await Map.TrySetViewAsync(args.Position.Coordinate.Point);
-            });
+                 if (CoordinateView.destination.Longitude != null)
+                 {
+                     distance = getDistanceFromLatLonInKm(CoordinateView.Lattitude1, CoordinateView.Longitude1, position.Latitude, position.Longitude);
+                 }
+                 await Map.TrySetViewAsync(args.Position.Coordinate.Point);
+             });
 
         }
 
@@ -142,6 +141,8 @@ namespace EpicAdventure.Views
             // Request permission to access location
             var accessStatus = await Geolocator.RequestAccessAsync();
 
+
+            
             switch (accessStatus)
             {
                 case GeolocationAccessStatus.Allowed:

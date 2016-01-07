@@ -17,8 +17,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <TextBlock Name="Afstand" Text="Afstand" FontSize="30" HorizontalAlignment="Center"></TextBlock>
-        </StackPanel>
+                    <TextBlock Name="Afstand" Text="Afstand" FontSize="30" HorizontalAlignment="Center" ></TextBlock> <!--Text="{Binding Afstand}"-->
+                </StackPanel>
 
         <StackPanel Grid.Row="1">
             <Grid>
