@@ -17,6 +17,10 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using EpicAdventure.Views;
 using EpicAdventure.ViewModel;
+using Windows.Devices.Geolocation;
+using Windows.UI.Xaml.Controls.Maps;
+using Windows.UI;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -31,6 +35,15 @@ namespace EpicAdventure.Views
         public static StartVM v = new StartVM();
         // This event handler writes the current compass reading to 
         // the textblocks on the app's main page.
+        public static double distance = 0;
+        int counter = 0;
+        bool playing = true;
+        List<BasicGeoposition> l = new List<BasicGeoposition>();
+        MapIcon CurrenPosition;
+        Geolocator geo;
+        public static BasicGeoposition position;
+        bool PositionTracking = false;
+        BasicGeoposition temp;
 
         private async void ReadingChanged(object sender, CompassReadingChangedEventArgs e)
         {
@@ -52,12 +65,14 @@ namespace EpicAdventure.Views
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
 
+            //map !!!!!!!!!
             //this.DataContext = new MapVM();
 
-            //CurrenPosition = new MapIcon();
-            
-            //App.Geo.PositionChanged += Geo_PositionChanged;
-            //StartTracking();
+            CurrenPosition = new MapIcon();
+
+            App.Geo.PositionChanged += Geo_PositionChanged;
+            StartTracking();
+            //map !!!!!!
 
             // Assign an event handler for the compass reading-changed event
             if (_compass != null)
@@ -72,6 +87,132 @@ namespace EpicAdventure.Views
             image.Source = new BitmapImage(new Uri("ms-appx:///Resources/test1.png"));
             image1.Source = new BitmapImage(new Uri("ms-appx:///Resources/test2.png"));
             image2.Source = new BitmapImage(new Uri("ms-appx:///Resources/test.png"));
+        }
+
+
+
+
+        //map testsosjfdosaifdspafjisoafajfopajwpfasj
+
+        private async void Geo_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
+            {
+                DrawCurrenPosition(new Geopoint(args.Position.Coordinate.Point.Position));
+                BasicGeoposition p = new BasicGeoposition();
+                p = args.Position.Coordinate.Point.Position;
+                position = p;
+                MapPolyline mapPolyline = new MapPolyline();
+
+                l.Add(p);
+                mapPolyline.Path = new Geopath(l);
+                temp = args.Position.Coordinate.Point.Position;
+
+                mapPolyline.StrokeColor = Colors.Black;
+                mapPolyline.StrokeThickness = 3;
+                mapPolyline.StrokeDashed = true;
+                Map.MapElements.Remove(mapPolyline);
+                Map.MapElements.Add(mapPolyline);
+
+                if (CoordinateView.Longitude1 != null)
+                {
+                    distance = getDistanceFromLatLonInKm(CoordinateView.Lattitude1, CoordinateView.Longitude1, position.Latitude, position.Longitude);
+                    StartView.v.Afstand = "Afstand: " + (Math.Round(MapView.distance * 1000) / 1000) + "KM";
+
+                    if (distance < 0.020)
+                    {
+                        counter++;
+                    }
+                    else
+                    {
+                        counter = 0;
+                    }
+                }
+
+                if (counter > 2 && playing == true)
+                {
+                    var dialog = new MessageDialog("You found your treasure be happy or somthing");
+                    playing = false;
+                    await dialog.ShowAsync();
+                }
+                await Map.TrySetViewAsync(args.Position.Coordinate.Point);
+            });
+
+        }
+
+        private void DrawCurrenPosition(Geopoint p)
+        {
+
+            CurrenPosition.Location = p;
+            CurrenPosition.NormalizedAnchorPoint = new Point(0.5, 1.0);
+            CurrenPosition.Title = "Current Position";
+            CurrenPosition.ZIndex = 999;
+            Map.MapElements.Remove(CurrenPosition);
+            Map.MapElements.Add(CurrenPosition);
+
+        }
+        public double deg2rad(double deg)
+        {
+            return deg * (Math.PI / 180);
+        }
+        public double getDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
+        {
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad((lat2 - lat1));  // deg2rad below
+            var dLon = deg2rad(lon2 - lon1);
+            var a =
+              Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+              Math.Cos(deg2rad(lat1)) * Math.Cos(deg2rad(lat2)) *
+              Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
+              ;
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var d = R * c; // Distance in km
+            return d;
+        }
+
+        private void Geo_StatusChanged(Geolocator sender, StatusChangedEventArgs args)
+        {
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+
+                }
+                );
+        }
+        private async void StartTracking()
+        {
+            // Request permission to access location
+            var accessStatus = await Geolocator.RequestAccessAsync();
+
+
+
+            switch (accessStatus)
+            {
+                case GeolocationAccessStatus.Allowed:
+                    geo = new Geolocator { ReportInterval = 100 };
+
+                    // Subscribe to PositionChanged event to get updated tracking positions
+                    geo.PositionChanged += Geo_PositionChanged;
+
+                    // Subscribe to StatusChanged event to get updates of location status changes
+                    geo.StatusChanged += Geo_StatusChanged;
+
+                    PositionTracking = true;
+
+
+
+                    break;
+
+                case GeolocationAccessStatus.Denied:
+
+                    break;
+
+                case GeolocationAccessStatus.Unspecified:
+
+                    break;
+            }
+
+
         }
     }
 }

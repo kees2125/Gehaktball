@@ -71,6 +71,8 @@ namespace EpicAdventure
         //}
         private void startRoute_Click(object sender, RoutedEventArgs e)
         {
+             Secondes1.Text= Secondes1.Text.Replace(',', '.');
+             Secondes1.Text= Secondes2.Text.Replace(',', '.');
             if (toggleSwitch.IsOn)
             {
                 Lattitude1 = -(int.Parse(Degrees1.Text) + (((double.Parse(Minutes1.Text)) * 60 + double.Parse(Secondes1.Text)) / 3600));
@@ -87,29 +89,6 @@ namespace EpicAdventure
             {
                 Longitude1 = int.Parse(Degrees2.Text) + (((double.Parse(Minutes2.Text)) * 60 + double.Parse(Secondes2.Text)) / 3600);
             }
-            foreach (char i in Secondes1.Text)
-            {
-
-                if (i == ',')
-                {
-                    Secondes1.Text.Replace(i, '.');
-                }
-            }
-            foreach (char i in Secondes2.Text)
-            {
-
-                if (i == ',')
-                {
-                    Secondes2.Text.Replace(i, '.');
-                }
-            }
-            //decimalDegrees.Text = convertDMS.ToString();
-            //decimalDegrees2.Text = convertDMS1.ToString();
-            //destination = new Geocoordinate();
-
-            destination = new BasicGeoposition();
-            destination.Latitude = Lattitude1;
-            destination.Longitude = Longitude1;
             Frame.Navigate(typeof(StartView));
         }
 
@@ -136,7 +115,9 @@ namespace EpicAdventure
 
         private void startRoute1_Click(object sender, RoutedEventArgs e)
         {
-            if (toggleSwitch2.IsOn)
+            decimalDegrees.Text = decimalDegrees.Text.Replace(',','.');
+            decimalDegrees2.Text = decimalDegrees2.Text.Replace(',', '.');
+            if(toggleSwitch2.IsOn)
             {
                 Lattitude1 = -(double.Parse(decimalDegrees.Text));
             }
@@ -152,28 +133,7 @@ namespace EpicAdventure
             {
                 Longitude1 = double.Parse(decimalDegrees2.Text);
             }
-            foreach (char i in decimalDegrees.Text)
-            {
-
-                if (i == ',')
-                {
-                    decimalDegrees.Text.Replace(i, '.');
-                }
-            }
-            foreach (char i in decimalDegrees2.Text)
-            {
-
-                if (i == ',')
-                {
-                    decimalDegrees.Text.Replace(i, '.');
-                }
-            }
-            destination = new BasicGeoposition();
-            destination.Latitude = Lattitude1;
-            destination.Longitude = Longitude1;
-            Degrees2.Text = destination.Latitude.ToString();
             Frame.Navigate(typeof(StartView));
-            Degrees1.Text= getDistanceFromLatLonInKm(51.5719149, 4.768323000000009, Lattitude1, Longitude1).ToString();
         }
 
         private void FilledCoordinatesTest(object sender, TextChangedEventArgs e)
