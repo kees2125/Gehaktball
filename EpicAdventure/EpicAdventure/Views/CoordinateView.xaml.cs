@@ -178,10 +178,10 @@ namespace EpicAdventure
 
         private void FilledCoordinatesTest(object sender, TextChangedEventArgs e)
         {
-            if (Degrees1.Text.Length <2) {startRoute.IsEnabled = false;}
+            if (Degrees1.Text.Length <1) {startRoute.IsEnabled = false;}
             else if (Minutes1.Text.Length <1) { startRoute.IsEnabled = false; }
             else if (Secondes1.Text.Length <2){ startRoute.IsEnabled = false; }
-            else if (Degrees2.Text.Length < 2) { startRoute.IsEnabled = false; }
+            else if (Degrees2.Text.Length < 1) { startRoute.IsEnabled = false; }
             else if (Minutes2.Text.Length < 1) { startRoute.IsEnabled = false; }
             else if (Secondes2.Text.Length < 2) { startRoute.IsEnabled = false; }
             else { startRoute.IsEnabled = true; }
