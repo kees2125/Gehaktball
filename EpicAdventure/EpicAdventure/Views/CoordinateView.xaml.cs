@@ -87,6 +87,22 @@ namespace EpicAdventure
             {
                 Longitude1 = int.Parse(Degrees2.Text) + (((double.Parse(Minutes2.Text)) * 60 + double.Parse(Secondes2.Text)) / 3600);
             }
+            foreach (char i in Secondes1.Text)
+            {
+
+                if (i == ',')
+                {
+                    Secondes1.Text.Replace(i, '.');
+                }
+            }
+            foreach (char i in Secondes2.Text)
+            {
+
+                if (i == ',')
+                {
+                    Secondes2.Text.Replace(i, '.');
+                }
+            }
             //decimalDegrees.Text = convertDMS.ToString();
             //decimalDegrees2.Text = convertDMS1.ToString();
             //destination = new Geocoordinate();
@@ -141,9 +157,15 @@ namespace EpicAdventure
 
                 if (i == ',')
                 {
-                    Degrees1.Text.Replace(i, '.');
-                    Degrees2.Text = "ja";
-                    Minutes1.Text = Degrees1.Text;
+                    decimalDegrees.Text.Replace(i, '.');
+                }
+            }
+            foreach (char i in decimalDegrees2.Text)
+            {
+
+                if (i == ',')
+                {
+                    decimalDegrees.Text.Replace(i, '.');
                 }
             }
             destination = new BasicGeoposition();
