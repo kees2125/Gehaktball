@@ -28,7 +28,7 @@ namespace EpicAdventure.Views
     public sealed partial class StartView : Page
     {
         private Compass _compass; // Our app's compass object
-
+        public static StartVM v = new StartVM();
         // This event handler writes the current compass reading to 
         // the textblocks on the app's main page.
 
@@ -46,7 +46,7 @@ namespace EpicAdventure.Views
 
         public StartView()
         {
-            this.DataContext = new StartVM();
+            this.DataContext = v;
             this.InitializeComponent();
             _compass = Compass.GetDefault(); // Get the default compass object
             this.InitializeComponent();

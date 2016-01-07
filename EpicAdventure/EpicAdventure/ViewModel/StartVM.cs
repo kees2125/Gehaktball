@@ -9,8 +9,15 @@ namespace EpicAdventure.ViewModel
 {
     public class StartVM : INotifyPropertyChanged
     {
-        public static String Afstand { get; set; }
-       
+        private static string _afstand;
+
+        public string Afstand
+        {
+            get { return _afstand; }
+            set { _afstand = value; NotifyPropertyChanged(nameof(Afstand)); }
+        }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
