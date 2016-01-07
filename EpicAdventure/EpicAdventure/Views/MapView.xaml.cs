@@ -61,7 +61,7 @@ namespace EpicAdventure.Views
                  Map.MapElements.Remove(mapPolyline);
                  Map.MapElements.Add(mapPolyline);
               
-                 if (CoordinateView.destination.Longitude != null)
+                 if (CoordinateView.Longitude1 != null)
                  {
                      distance = getDistanceFromLatLonInKm(CoordinateView.Lattitude1, CoordinateView.Longitude1, position.Latitude, position.Longitude);
                      StartView.v.Afstand = "Afstand: " + (Math.Round(MapView.distance*1000)/1000)+"KM";
