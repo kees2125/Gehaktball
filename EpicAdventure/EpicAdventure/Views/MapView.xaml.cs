@@ -64,7 +64,7 @@ namespace EpicAdventure.Views
                  if (CoordinateView.destination.Longitude != null)
                  {
                      distance = getDistanceFromLatLonInKm(CoordinateView.Lattitude1, CoordinateView.Longitude1, position.Latitude, position.Longitude);
-                     StartView.v.Afstand = "Afstand: " + MapView.distance;
+                     StartView.v.Afstand = "Afstand: " + (Math.Round(MapView.distance*100)/100)+"KM";
 
                      if(distance < 0.020)
                      {
