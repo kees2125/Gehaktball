@@ -117,24 +117,17 @@ namespace EpicAdventure.Views
                 if (CoordinateView.Longitude1 != null)
                 {
                     distance = getDistanceFromLatLonInKm(CoordinateView.Lattitude1, CoordinateView.Longitude1, position.Latitude, position.Longitude);
-                    StartView.v.Afstand = "Afstand: " + (Math.Round(MapView.distance * 1000) / 1000) + "KM";
+                    StartView.v.Afstand = "Afstand: " + (Math.Round(distance * 1000) / 1000) + "KM";
 
-                    if (distance < 0.020)
+                    if (distance < 0.020 && playing == true)
                     {
-                        counter++;
+                        var dialog = new MessageDialog("You found your treasure be happy or somthing");
+                        playing = false;
+                        await dialog.ShowAsync();
                     }
-                    else
-                    {
-                        counter = 0;
-                    }
+                    
                 }
 
-                if (counter > 2 && playing == true)
-                {
-                    var dialog = new MessageDialog("You found your treasure be happy or somthing");
-                    playing = false;
-                    await dialog.ShowAsync();
-                }
                 await Map.TrySetViewAsync(args.Position.Coordinate.Point);
             });
 
