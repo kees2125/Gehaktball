@@ -173,7 +173,7 @@ namespace EpicAdventure
             destination.Longitude = Longitude1;
             Degrees2.Text = destination.Latitude.ToString();
             Frame.Navigate(typeof(StartView));
-            Degrees1.Text= getDistanceFromLatLonInKm(51.5719149, 4.768323000000009, Longitude1, Lattitude1).ToString();
+            Degrees1.Text= getDistanceFromLatLonInKm(51.5719149, 4.768323000000009, Lattitude1, Longitude1).ToString();
         }
 
         private void FilledCoordinatesTest(object sender, TextChangedEventArgs e)
