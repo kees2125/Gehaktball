@@ -59,9 +59,9 @@ namespace EpicAdventure
         {
             NavView.IsPaneOpen = false;
 
-            if (NavListMap.IsSelected)
-                Frame.Navigate(typeof(MapView));
-            else if (NavListSetCoordinates.IsSelected)
+            //if (NavListMap.IsSelected)
+            //    Frame.Navigate(typeof(MapView));
+            if (NavListSetCoordinates.IsSelected)
                 Frame.Navigate(typeof(CoordinateView));
             else if (NavListHome.IsSelected)
                 Frame.Navigate(typeof(StartView));
@@ -93,10 +93,10 @@ namespace EpicAdventure
                 //    PageTitle.Text = Util.Loader.GetString("PageTitleSettings");
                 //    NavListSettings.IsSelected = true;
                 //    break;
-                case "mapview":
-                    //NavListSetCoordinates.IsSelected = true;
-                    PageTitle.Text = "Map";
-                    break;
+                //case "mapview":
+                //    //NavListSetCoordinates.IsSelected = true;
+                //    PageTitle.Text = "Map";
+                //    break;
                 case "coordinateview":
                     PageTitle.Text = "Coordinates";
                     //NavListSetCoordinates.IsSelected = true;
