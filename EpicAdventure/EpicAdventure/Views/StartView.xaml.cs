@@ -37,6 +37,7 @@ namespace EpicAdventure.Views
         // the textblocks on the app's main page.
         public static double distance = 0;
         int counter = 0;
+        public String afstandstring;
         bool playing = true;
         List<BasicGeoposition> l = new List<BasicGeoposition>();
         MapIcon CurrenPosition;
@@ -122,7 +123,9 @@ namespace EpicAdventure.Views
                 if (CoordinateView.Longitude1 != 0)
                 {
                     distance = getDistanceFromLatLonInKm(CoordinateView.Lattitude1, CoordinateView.Longitude1, position.Latitude, position.Longitude);
-                    StartView.v.Afstand = "Afstand: " + (Math.Round(distance * 1000) / 1000) + "KM";
+                    afstandstring = Math.Round(distance * 1000) / 1000 +"";
+                    afstandstring= afstandstring.Replace('.', ',');
+                    StartView.v.Afstand = "Afstand: " + afstandstring + "KM";
 
                     if (distance < 0.020 && playing == true)
                     {
