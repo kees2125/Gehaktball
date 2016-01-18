@@ -25,8 +25,6 @@ namespace EpicAdventure
     /// </summary>
     public sealed partial class CoordinateView : Page
     {
-        double Lattitude;
-        double Longitude;
         public static BasicGeoposition destination;
         public static double Lattitude1;
         public static double Longitude1;
@@ -37,11 +35,7 @@ namespace EpicAdventure
             startRoute1.IsEnabled = false;
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
-
-        public double getLattitude()
-        {
-            return Lattitude;
-        }
+        
         //private void newButton_Click(object sender, RoutedEventArgs e)
         //{
         //    Menu.IsPaneOpen = !Menu.IsPaneOpen;

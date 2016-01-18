@@ -44,6 +44,7 @@ namespace EpicAdventure.Views
         public static BasicGeoposition position;
         bool PositionTracking = false;
         BasicGeoposition temp;
+        bool zoomSet = false;
 
         private async void ReadingChanged(object sender, CompassReadingChangedEventArgs e)
         {
@@ -87,6 +88,7 @@ namespace EpicAdventure.Views
             image.Source = new BitmapImage(new Uri("ms-appx:///Resources/test1.png"));
             image1.Source = new BitmapImage(new Uri("ms-appx:///Resources/test2.png"));
             image2.Source = new BitmapImage(new Uri("ms-appx:///Resources/test.png"));
+           
         }
 
 
@@ -113,7 +115,12 @@ namespace EpicAdventure.Views
                 mapPolyline.StrokeDashed = true;
                 Map.MapElements.Remove(mapPolyline);
                 Map.MapElements.Add(mapPolyline);
-
+                if(zoomSet == false)
+                {
+                    Map.ZoomLevel = 15;
+                    Map.Center = new Geopoint(position);
+                    zoomSet = true;
+                }
                 if (CoordinateView.Longitude1 != null)
                 {
                     distance = getDistanceFromLatLonInKm(CoordinateView.Lattitude1, CoordinateView.Longitude1, position.Latitude, position.Longitude);
