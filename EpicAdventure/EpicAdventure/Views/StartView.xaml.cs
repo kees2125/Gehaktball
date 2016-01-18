@@ -90,10 +90,6 @@ namespace EpicAdventure.Views
             image2.Source = new BitmapImage(new Uri("ms-appx:///Resources/test.png"));
            
         }
-
-
-
-
         //map testsosjfdosaifdspafjisoafajfopajwpfasj
 
         private async void Geo_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
@@ -115,13 +111,15 @@ namespace EpicAdventure.Views
                 mapPolyline.StrokeDashed = true;
                 Map.MapElements.Remove(mapPolyline);
                 Map.MapElements.Add(mapPolyline);
+
                 if(zoomSet == false)
                 {
                     Map.ZoomLevel = 15;
                     Map.Center = new Geopoint(position);
                     zoomSet = true;
                 }
-                if (CoordinateView.Longitude1 != null)
+
+                if (CoordinateView.Longitude1 != 0)
                 {
                     distance = getDistanceFromLatLonInKm(CoordinateView.Lattitude1, CoordinateView.Longitude1, position.Latitude, position.Longitude);
                     StartView.v.Afstand = "Afstand: " + (Math.Round(distance * 1000) / 1000) + "KM";
@@ -133,6 +131,10 @@ namespace EpicAdventure.Views
                         await dialog.ShowAsync();
                     }
                     
+                }
+                else
+                {
+                    StartView.v.Afstand = "Afstand:";
                 }
 
                 await Map.TrySetViewAsync(args.Position.Coordinate.Point);
@@ -189,7 +191,7 @@ namespace EpicAdventure.Views
             switch (accessStatus)
             {
                 case GeolocationAccessStatus.Allowed:
-                    geo = new Geolocator { ReportInterval = 100 };
+                    geo = new Geolocator { ReportInterval = 1500 };
 
                     // Subscribe to PositionChanged event to get updated tracking positions
                     geo.PositionChanged += Geo_PositionChanged;
