@@ -12,7 +12,9 @@ namespace EpicAdventure.ViewModel
     public class MenuVM : INotifyPropertyChanged
     {
         CoreDispatcher dispatcher;
-
+        private string _Accuracy;
+        private string _Source;
+        private string _Status;
         public MenuVM()
         {
             dispatcher = Windows.UI.Core.CoreWindow.GetForCurrentThread().Dispatcher;
@@ -31,7 +33,10 @@ namespace EpicAdventure.ViewModel
         {
             dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                NotifyPropertyChanged(nameof(Status));
+               
+                Status = App.Geo.Status.ToString();
+                
+
             });
             
         }
@@ -40,8 +45,10 @@ namespace EpicAdventure.ViewModel
         {
             dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                NotifyPropertyChanged(nameof(Source));
-                NotifyPropertyChanged(nameof(Accuracy));
+                Accuracy = App.Geo.Position.Coordinate.Accuracy.ToString() + "m";
+                Source = App.Geo.Position.Coordinate.PositionSource.ToString();
+               // NotifyPropertyChanged(nameof(Source));
+               // NotifyPropertyChanged(nameof(Accuracy));
             });
         }
 
@@ -49,7 +56,11 @@ namespace EpicAdventure.ViewModel
         {
             get
             {
-                return App.Geo.Status;
+                return _Status;
+            }
+            set 
+            {
+                _Status = value; NotifyPropertyChanged(nameof(Status));
             }
         }
 
@@ -57,10 +68,15 @@ namespace EpicAdventure.ViewModel
         {
             get
             {
-                if (App.Geo.Connected && App.Geo.Position != null)
-                    return App.Geo.Position.Coordinate.PositionSource.ToString();
+                if (App.Geo.Connected)
+                    //  return App.Geo.Position.Coordinate.PositionSource.ToString();
+                    return _Source;
                 else
                     return "N/A";
+            }
+            set
+            {
+                _Source = value; NotifyPropertyChanged(nameof(Source));
             }
         }
 
@@ -68,11 +84,16 @@ namespace EpicAdventure.ViewModel
         {
             get
             {
-                
-                if (App.Geo.Connected && App.Geo.Position != null)
-                    return App.Geo.Position.Coordinate.Accuracy.ToString() + "m";
+
+                if (App.Geo.Connected )
+                    //  return App.Geo.Position.Coordinate.Accuracy.ToString() + "m";
+                    return _Accuracy;
                 else
                     return "0m";
+            }
+            set
+            {
+                _Accuracy = value; NotifyPropertyChanged(nameof(Accuracy));
             }
         }
     }

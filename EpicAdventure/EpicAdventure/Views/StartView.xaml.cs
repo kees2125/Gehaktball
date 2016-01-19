@@ -112,8 +112,9 @@ namespace EpicAdventure.Views
                 mapPolyline.StrokeDashed = true;
                 Map.MapElements.Remove(mapPolyline);
                 Map.MapElements.Add(mapPolyline);
-
-                if(zoomSet == false)
+                //Accuracy = App.Geo.Position.Coordinate.Accuracy.ToString() + "m";
+                //Source = App.Geo.Position.Coordinate.PositionSource.ToString();
+                if (zoomSet == false)
                 {
                     Map.ZoomLevel = 15;
                     Map.Center = new Geopoint(position);

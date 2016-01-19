@@ -88,17 +88,17 @@
                     <StackPanel RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Background="Transparent">
                         <StackPanel Style="{StaticResource GPSInfoPanel}" Tapped="GPSRefresh_Tapped">
                             <TextBlock Style="{StaticResource GPSInfoIcon}" Text="&#xE81D;"/>
-                            <TextBlock Style="{StaticResource GPSInfoText}" Text="{Binding Status}"/>
+                            <TextBlock Style="{StaticResource GPSInfoText}" Text="{Binding Status,Mode=TwoWay}"/>
                         </StackPanel>
 
                         <StackPanel Style="{StaticResource GPSInfoPanel}">
                             <TextBlock Style="{StaticResource GPSInfoIcon}" Text="&#xE774;"/>
-                            <TextBlock Style="{StaticResource GPSInfoText}" Text="{Binding Source}"/>
+                            <TextBlock Style="{StaticResource GPSInfoText}" Text="{Binding Source,Mode=TwoWay}"/>
                         </StackPanel>
 
                         <StackPanel Style="{StaticResource GPSInfoPanel}">
                             <TextBlock Style="{StaticResource GPSInfoIcon}" Text="&#xE707;"/>
-                            <TextBlock Style="{StaticResource GPSInfoText}" Text="{Binding Accuracy}"/>
+                            <TextBlock Style="{StaticResource GPSInfoText}" Text="{Binding Accuracy,Mode=TwoWay}"/>
                         </StackPanel>
 
                         <TextBlock Text="EpicAdventure @ 2015" Margin="15, 5"/>
