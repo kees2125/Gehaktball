@@ -12,9 +12,9 @@ namespace EpicAdventure.ViewModel
     public class MenuVM : INotifyPropertyChanged
     {
         CoreDispatcher dispatcher;
-        private string _Accuracy;
-        private string _Source;
-        private string _Status;
+        private static string _Accuracy;
+        private static string _Source;
+        private static string _Status;
         public MenuVM()
         {
             dispatcher = Windows.UI.Core.CoreWindow.GetForCurrentThread().Dispatcher;
@@ -34,7 +34,7 @@ namespace EpicAdventure.ViewModel
             dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                
-                Status = App.Geo.Status.ToString();
+             
                 
 
             });
@@ -45,10 +45,7 @@ namespace EpicAdventure.ViewModel
         {
             dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                Accuracy = App.Geo.Position.Coordinate.Accuracy.ToString() + "m";
-                Source = App.Geo.Position.Coordinate.PositionSource.ToString();
-               // NotifyPropertyChanged(nameof(Source));
-               // NotifyPropertyChanged(nameof(Accuracy));
+                
             });
         }
 

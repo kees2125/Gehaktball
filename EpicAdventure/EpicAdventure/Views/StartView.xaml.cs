@@ -32,6 +32,9 @@ namespace EpicAdventure.Views
     public sealed partial class StartView : Page
     {
         private Compass _compass; // Our app's compass object
+        public static string status="";
+        public static string acuratie="";
+        public static string source="";
         public static StartVM v = new StartVM();
         // This event handler writes the current compass reading to 
         // the textblocks on the app's main page.
@@ -112,6 +115,10 @@ namespace EpicAdventure.Views
                 mapPolyline.StrokeDashed = true;
                 Map.MapElements.Remove(mapPolyline);
                 Map.MapElements.Add(mapPolyline);
+                MenuVM temps = new MenuVM();
+                temps.Accuracy = args.Position.Coordinate.Accuracy.ToString() + "m";
+                temps.Source = args.Position.Coordinate.PositionSource.ToString();
+                temps.Status = sender.LocationStatus.ToString();
                 //Accuracy = App.Geo.Position.Coordinate.Accuracy.ToString() + "m";
                 //Source = App.Geo.Position.Coordinate.PositionSource.ToString();
                 if (zoomSet == false)
