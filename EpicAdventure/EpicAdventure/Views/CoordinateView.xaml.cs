@@ -33,9 +33,28 @@ namespace EpicAdventure
             this.InitializeComponent();
             startRoute.IsEnabled = false;
             startRoute1.IsEnabled = false;
+            readcordinates();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
-        
+        private async void readcordinates()
+        {
+            try
+            {
+                Windows.Storage.StorageFolder storageFolder =
+                Windows.Storage.ApplicationData.Current.LocalFolder;
+                Windows.Storage.StorageFile sampleFile =
+                    await storageFolder.GetFileAsync("sample.txt");
+                string text = await Windows.Storage.FileIO.ReadTextAsync(sampleFile);
+                string[] text2 = text.Split('/');
+                decimalDegrees.Text = text2[0];
+                decimalDegrees2.Text = text2[1];
+            }
+            catch
+            {
+
+            }
+           
+        }
         //private void newButton_Click(object sender, RoutedEventArgs e)
         //{
         //    Menu.IsPaneOpen = !Menu.IsPaneOpen;
@@ -107,11 +126,11 @@ namespace EpicAdventure
         }
 
 
-        private void startRoute1_Click(object sender, RoutedEventArgs e)
+        private async void startRoute1_Click(object sender, RoutedEventArgs e)
         {
-            decimalDegrees.Text = decimalDegrees.Text.Replace(',','.');
+            decimalDegrees.Text = decimalDegrees.Text.Replace(',', '.');
             decimalDegrees2.Text = decimalDegrees2.Text.Replace(',', '.');
-            if(toggleSwitch2.IsOn)
+            if (toggleSwitch2.IsOn)
             {
                 Lattitude1 = -(double.Parse(decimalDegrees.Text));
             }
@@ -128,6 +147,16 @@ namespace EpicAdventure
                 Longitude1 = double.Parse(decimalDegrees2.Text);
             }
             Frame.Navigate(typeof(StartView));
+
+            Windows.Storage.StorageFolder storageFolder =
+            Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile sampleFile =
+                await storageFolder.CreateFileAsync("sample.txt",
+                    Windows.Storage.CreationCollisionOption.ReplaceExisting);
+
+            await Windows.Storage.FileIO.WriteTextAsync(sampleFile, Lattitude1 + "/" + Longitude1);
+
+
         }
 
         private void FilledCoordinatesTest(object sender, TextChangedEventArgs e)
