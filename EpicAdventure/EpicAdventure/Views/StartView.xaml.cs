@@ -31,6 +31,9 @@ namespace EpicAdventure.Views
     /// </summary>
     public sealed partial class StartView : Page
     {
+        private BitmapImage imageOpslag1;
+        private BitmapImage imageOpslag2;
+        private BitmapImage imageOpslag3;
         private Compass _compass; // Our app's compass object
         public static string status="";
         public static string acuratie="";
@@ -58,6 +61,8 @@ namespace EpicAdventure.Views
                 String value = String.Format("{0,5:0.00}", reading.HeadingTrueNorth);
                 IMAGETRANSFORM.Rotation = -double.Parse(value);
                 IMAGETRANSFORM1.Rotation = -double.Parse(value);
+                IMAGETRANSFORM2.Rotation = -double.Parse(value);
+                IMAGETRANSFORM3.Rotation = -double.Parse(value);
 
             });
         }
@@ -89,9 +94,12 @@ namespace EpicAdventure.Views
                 _compass.ReadingChanged += new TypedEventHandler<Compass, CompassReadingChangedEventArgs>(ReadingChanged);
             }
 
-            image.Source = new BitmapImage(new Uri("ms-appx:///Resources/test1.png"));
-            image1.Source = new BitmapImage(new Uri("ms-appx:///Resources/test2.png"));
-            image2.Source = new BitmapImage(new Uri("ms-appx:///Resources/test.png"));
+            imageOpslag1 = new BitmapImage(new Uri("ms-appx:///Resources/test1.png"));
+            imageOpslag2 = new BitmapImage(new Uri("ms-appx:///Resources/test2.png"));
+            imageOpslag3 = new BitmapImage(new Uri("ms-appx:///Resources/test.png"));
+            image.Source = imageOpslag1;
+            image1.Source = imageOpslag2;
+            image2.Source = imageOpslag3;
            
         }
         //map testsosjfdosaifdspafjisoafajfopajwpfasj
@@ -225,6 +233,47 @@ namespace EpicAdventure.Views
                     break;
             }
 
+
+        }
+
+        private void Compas_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (Compas.IsOn)
+            {
+                image.Source = null;
+                image1.Source = null;
+                image2.Source = null;
+                image3.Source = imageOpslag1;
+            }
+            else
+            {
+                image4.Source = null;
+                image5.Source = null;
+                image3.Source = null;
+                image.Source = imageOpslag1;
+                image1.Source = imageOpslag2;
+                image2.Source = imageOpslag3;
+            }
+        }
+
+        private void StackPanel_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            if (Compas.IsOn)
+            {
+                if(image3.Source ==(null))
+                {
+                    image3.Source = imageOpslag1;
+                    image4.Source = null;
+                    image5.Source = null;
+                }
+                else
+                {
+                    image3.Source = null;
+                    image4.Source = imageOpslag2;
+                    image5.Source = imageOpslag3;
+                    
+                }
+            }
 
         }
     }

@@ -17,22 +17,26 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-                    <TextBlock Name="Afstand" Text="{Binding Afstand,Mode=TwoWay}" FontSize="30" HorizontalAlignment="Center" ></TextBlock> <!--Text="{Binding Afstand}"-->
+                    <Grid>
+                        <ToggleSwitch Name="Compas" OffContent="" OnContent=""  HorizontalAlignment="Left" Toggled="Compas_Toggled"> </ToggleSwitch>
+                        <TextBlock Name="Afstand" Text="{Binding Afstand,Mode=TwoWay}" FontSize="30" HorizontalAlignment="Center" ></TextBlock>
+                        <!--Text="{Binding Afstand}"-->
+                        
+                    </Grid>
                 </StackPanel>
-
         <StackPanel Grid.Row="1">
             <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Image x:Name="image" Grid.Column="0"  RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="image" Grid.Column="0"  RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center">
             <Image.RenderTransform>
                 <CompositeTransform x:Name="IMAGETRANSFORM"/>
             </Image.RenderTransform>
 
         </Image>
-        <Image x:Name="image1" Grid.Column="1"  RenderTransformOrigin="0.5,0.5">
+        <Image x:Name="image1" Grid.Column="1"  RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center">
             <Image.RenderTransform>
                 <CompositeTransform x:Name="IMAGETRANSFORM1"/>
             </Image.RenderTransform>
@@ -42,8 +46,42 @@
         </Image>
             </Grid>
         </StackPanel>
-        <map:MapControl Grid.Row="2" Name="Map" ZoomInteractionMode="GestureAndControl" PanInteractionMode="Auto" TiltInteractionMode="GestureOnly" RotateInteractionMode="GestureOnly" MapServiceToken="74Y70e71HVjjN7lnx4Eh~3wugTlBDe2DbPGuR_AM2aA~AjMbg-pU2qn4gYf97oH0GZI1oY9Jc4vH-4WyIRyoYQM0Q71CnfbWalEN37bdSgms" />
+                <StackPanel Grid.Row="1" ManipulationMode="TranslateX" ManipulationCompleted="StackPanel_ManipulationCompleted">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="image3" Grid.Column="1" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" Stretch="UniformToFill" >
+                            <Image.RenderTransform>
+                                <CompositeTransform x:Name="IMAGETRANSFORM2"/>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Row="1"  ManipulationMode="TranslateX" ManipulationCompleted="StackPanel_ManipulationCompleted">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="image4" Grid.Column="1" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" Stretch="UniformToFill">
+                            <Image.RenderTransform>
+                                <CompositeTransform x:Name="IMAGETRANSFORM3"/>
+                            </Image.RenderTransform>
+
+                        </Image>
+                        <Image x:Name="image5" Grid.Column="1" RenderTransformOrigin="0.5,0.5" Stretch="UniformToFill">
+                        </Image>
+                    </Grid>
+                </StackPanel>
+
+
+                <map:MapControl Grid.Row="2" Name="Map" ZoomInteractionMode="GestureAndControl" PanInteractionMode="Auto" TiltInteractionMode="GestureOnly" RotateInteractionMode="GestureOnly" MapServiceToken="74Y70e71HVjjN7lnx4Eh~3wugTlBDe2DbPGuR_AM2aA~AjMbg-pU2qn4gYf97oH0GZI1oY9Jc4vH-4WyIRyoYQM0Q71CnfbWalEN37bdSgms" />
     </Grid>
         </ScrollViewer>
     </Grid>
+
 </Page>

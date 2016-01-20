@@ -22,6 +22,12 @@ namespace EpicAdventure.ViewModel
             App.Geo.PositionChanged += Geo_PositionChanged;
         }
 
+        public string Status
+        {
+            get { return _Status; }
+            set { _Status = value; NotifyPropertyChanged(nameof(Status)); }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(string propertyName)
@@ -49,17 +55,17 @@ namespace EpicAdventure.ViewModel
             });
         }
 
-        public string Status
-        {
-            get
-            {
-                return _Status;
-            }
-            set 
-            {
-                _Status = value; NotifyPropertyChanged(nameof(Status));
-            }
-        }
+        //public string Status
+        //{
+        //    get
+        //    {
+        //        return _Status;
+        //    }
+        //    set 
+        //    {
+        //        _Status = value; NotifyPropertyChanged(nameof(Status));
+        //    }
+        //}
 
         public string Source
         {
